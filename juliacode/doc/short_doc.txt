@@ -1,0 +1,122 @@
+================================================
+Library for graph complexes - temporary name GCL
+================================================
+
+Use cases which GCL supports:
+ - The user wants to study a complex of some "new" type of graphs
+ - The user wants to study some new operators on classical complexes of graphs
+ - The user wants to visualize some results, e.g., which graph represents class X etc.
+ 
+Further goals to have in mind:
+ - User should be shielded from as many "boring" bookkeeping and low level details as possible.
+   E.g., for defining an operator between graph complexes, the user should essentially only have
+   to write a routine which accepts a graph as an input, and produces a linear combination of 
+   output graphs.
+ - Integrating existing libraries or computed data shall be posssible. E.g., one shall use GCL's 
+   bookkeeping with existing programs for generating data files etc.
+
+
+General Design principle
+------------------------
+It is assumed that computing graph data is very costly, as opposed to reading that data into memory.
+Hence computational results will be stored in files, and much of GCL is to handle the bookkeeping 
+around those files.
+
+
+Low level vs high level graphs
+------------------------------
+The user shall be shielded from having to care about signs and automorphisms of graphs as much as 
+possible. In particular, in order to avoid having to write custom automorphism finding routines,
+it is generally assumed that the graphs the user cares about "high level graphs" can be encoded 
+as "low level graphs" which have the same symmetries, that nauty can understand and handle.
+The concept of low level graph is abstracted in the type ("interface") CanonizableGraph.
+The interface is implemented in the types 
+    SmallGraph    - undirected simple graph with colored vertices
+    SmallDiGraph  - directed simple graph with colored vertices
+
+GCL deals internally mostly with low level graphs, while the user shall deal with high level graphs.
+Of course, the routines for translation between low and high level graphs have to be written by the user.
+
+Example:
+ 1 High level graph: Ribbon graphs
+   Low level graphs: directed graphs, in which each half edge is represented by a vertex, 
+   the cyclic orders encoded by a loop of directed edges 
+ 2 High level graph: Multigraphs (having multiple edges)
+   Low level graphs: undirected graphs of two colors, in which each edge is represented 
+   by a bivalent vertex of color 2. 
+
+  
+Main Classes
+------------
+The main abstract types (interfaces) are:
+
+    GraphVectorSpace{T}
+    -------------------
+    Instances encode a vector space of graphs of type T<:CanonizableGraph.
+    The user has to provide methods for (i) determining the sign of automorphisms of graphs 
+    in that vector space and (ii) generating a generating set (not necessarily a basis) of the space,
+    finally (iii) providing a file name in which the basis is stored in text format.
+
+    One instance of the type would for example encode the space of simple connected graphs of fixed 
+    loop order l, number of vertices v, and partity (even or odd) p.
+
+    GraphOperator{S,T}
+    ------------------
+    This interface encodes a linear operator between a GraphVectorSpace{S} and a GraphVectorSpace{T}.
+    The user has to implement methods that (i) say how the operator acts on a graph (with the symmetry
+    and canonization handled by GCL) and (ii) where the matrix file shall be stored.
+    Matrices are currently stored in the dumb format
+    row column entry
+    with no header.
+    It might make sense to change this to sms format with a header throughout.
+
+    Current implementations
+    -----------------------
+    Currently the above interfaces are implemented in the following cases:
+        OrdinaryGraphVectorSpace and ContractDOrdinary: vector space of simple ("commutative")
+            graphs and the edge contraction differential
+        EdgeMarkedGraphVectorSpace, ContractD, MarkD: vector space of simple graphs with some edges
+            marked, and operators of edge contraction and of marking an edge.
+        RibbonGraphVectorSpace and ContractDRibbon: ribbon graph complex (partially implemented)
+        
+    
+Generation of data files
+------------------------
+If the user implements the above interfaces, then generic methods of GCL can be used to (batch) generate 
+data files, visualize which files are available, and load the files if necessary etc.
+
+
+Visualization
+-------------
+GCL provides methods for visualizing graphs, list or linear combinations of graphs, and 
+(possibly higher dimensional) tables.
+All such display routines output to html files, the browser is then used for display.
+All display routines have a parameter N in which "display slot", i.e., file "displayN.html"
+the output is written.
+
+
+TODO
+----
+1. The core API should be cross-checked and improved/uniformized where necessary.
+   In particular, the file and package structure (where to put data, where to put the library,
+   where to put implementations) should be looked at.
+2. Data files should be generated, or my old existing data files integrated by writing thin wrappers.
+   (I have partially done that.)
+3. The code for batch computing ranks (i.e., dispatching jobs, somewhat accessing running times etc.)
+   is yet to be written, and one has to think about how ranks are to
+   be stored. I'd propose the rank of matrix Matrixfile.sms shall be stored in a separate file with name
+   Matrixfile.sms.rank or similar.
+4. Make existing code/libraries/data files available through GCL.
+5. Currently, each graph is canonized into a multiple of single graph. It would be better to canonize 
+   each graph into a linear combination, so as to allow for cases where one puts relations (like IHX) 
+   on graphs. This requires a few changes.
+6. Write a documentation.
+7. Publish GCL as Julia library, publish data files.
+
+
+1-3 are of most importance to me, along with the ability to run computations myself on other hardware 
+easily.
+
+
+
+
