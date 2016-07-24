@@ -10,8 +10,8 @@
 
 using Memoize
 
-markedDataDirOdd = "markeddata/oddedge/"
-markedDataDirEven = "markeddata/evenedge/"
+markedDataDirOdd = DATA_DIR + "/markeddata/oddedge/"
+markedDataDirEven = DATA_DIR + "/markeddata/evenedge/"
 imgBaseDir = "img/"
 
 # ----- helper methods

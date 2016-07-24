@@ -5,7 +5,14 @@ abstract GraphOperator{S, T}
 
 # ------ interface GraphOperator ---------
 function get_file_name{S, T}(self::GraphOperator{S,T})
-     """Retrieve the file name of the file storing the matrix."""
+     """Retrieve the file name (and path) of the file storing the matrix."""
+     error("Not implemented")
+end
+
+function get_unique_file_name{S, T}(self::GraphOperator{S,T})
+     """Retrieve a unique file name for the matrix.
+        This filename is used when interchanging files with other computers
+     """
      error("Not implemented")
 end
 
@@ -550,4 +557,113 @@ function commuteTestGeneric(oplst1, oplst2; antiCommute = false)
   for (op1,op2,op3,op4) in fail
     println("     $op1 $op2 $op3 $op4")
   end
+end
+
+
+"""
+  readRank
+  Tries to read the rank from file <MATRIXFILENAME>.rank if present.
+  
+  Returns -1 if file is not present.
+  Returns 0 if parameters are not in valid range
+"""
+function readRank{S, T}(self::GraphOperator{S,T})
+    if !(is_valid_op(self))
+      return 0
+    end
+
+    RankFile1 = get_file_name(self) + ".rank"
+    RankFile2 = joinpath(EXCHANGE_DIR_RANK , get_unique_file_name(self) + ".rank")
+    if isfile(RankFile1)
+       c = readAllLines(RankFile1)
+       return parse(Int, c)
+    elseif isfile(RankFile2)
+       c = readAllLines(RankFile2)
+       # Copy the rank file from the exchange dir to the "correct place" in the local filesystem
+       cp(RankFile2, RankFile1)
+       return parse(Int, c)
+    else
+       return -1
+    end
+
+end
+
+"""
+  computeRank
+  Computes the rank in julia, returns the result and writes the result to file
+  <MATRIXFILENAME>.rank for later use
+"""
+function computeRank{S, T}(self::GraphOperator{S,T})
+    if !(is_valid_op(self))
+      return 0
+    end
+
+    RankFile = get_file_name(self) + ".rank"
+    A = load_matrix(self)
+    r=0
+    if A != []
+      r = rank(full(A))
+    end
+
+    outfile = open(RankFile, "w")
+    write(outfile, r)
+    close(outfile)
+
+    return r
+
+end
+
+"""
+  scheduleForRankComputation
+  Copies the matrix file to the exchange dir, so that the rank can be computed externally.
+  The intended workflow is that the exchange directory is mirrored on the external compute host.
+  There the rank is computed, and the rank file created, and mirrored back to our machine.
+  Then reading the rank will copy the rank file to the correct directory.
+"""
+function scheduleForRankComputation{S, T}(self::GraphOperator{S,T}; skipExisting= false)
+    if !(is_valid_op(self))
+      return
+    end
+    ExchangeMatrixFile = joinpath(EXCHANGE_DIR_RANK , get_unique_file_name(self))
+    if skipExisting && isfile(ExchangeMatrixFile)
+      println("Skipping $ExchangeMatrixFile...")
+      return
+    end
+    A = load_matrix(self)
+    if A != []
+      # first create folder if necessary
+      outDir = dirname(ExchangeMatrixFile)
+      if !isdir(outDir)
+          mkpath(outDir)
+      end
+      write_matrix_file_sms(A, ExchangeMatrixFile)
+      println("Wrote $ExchangeMatrixFile.")
+    else
+      # don't schedule empty files, just report 0 rank
+      RankFile = get_file_name(self) + ".rank"
+      outfile = open(RankFile, "w")
+      write(outfile, "0")
+      close(outfile)
+      println("Found empty matrix, wrote $RankFile.")
+    end
+    # TODO: it is inefficient to load matrix and then write again,... 
+    # rather the standard format should be .sms and one just copies the file
+end
+
+function scheduleForRankComputations(oplist; skipExisting= true)
+    for op in oplist
+      scheduleForRankComputation(op, skipExisting=skipExisting)
+    end
+end
+
+function computeRanks(oplist; skipExisting= true)
+    for op in oplist
+      RankFile = get_file_name(op) + ".rank"
+      if (isfile(RankFile))
+        println("Skipping $RankFile...")
+      else
+        println("Computing rank, output to $RankFile...")
+        computeRank(op)
+      end
+    end
 end

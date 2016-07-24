@@ -1,6 +1,6 @@
 
-ribbonDataDirOdd = "ribbondata/oddedges/"
-ribbonDataDirEven = "ribbondata/evenedges/"
+ribbonDataDirOdd = DATA_DIR +"/ribbondata/oddedges/"
+ribbonDataDirEven = DATA_DIR +"/ribbondata/evenedges/"
 imgBaseDir = "img/"
 
   type RibbonGraphVectorSpace <: GraphVectorSpace{SmallDiGraph}

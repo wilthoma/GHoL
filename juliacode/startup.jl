@@ -2,6 +2,8 @@
 
 workspace()
 
+include("Settings.jl")
+
 include("linalg_helpers.jl")
 
 include("CanonizableGraph.jl")

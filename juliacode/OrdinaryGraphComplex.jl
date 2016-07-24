@@ -2,8 +2,8 @@
 # python compatibility
 len(lst) = length(lst)
 
-ordinaryDataDirOdd = "ordinarydata/oddedge/"
-ordinaryDataDirEven = "ordinarydata/evenedge/"
+ordinaryDataDirOdd = DATA_DIR + "/ordinarydata/oddedge/"
+ordinaryDataDirEven = DATA_DIR + "/ordinarydata/evenedge/"
 imgBaseDir = "img/"
 
 type OrdinaryGraphVectorSpace <: GraphVectorSpace{SmallGraph}
@@ -115,6 +115,12 @@ function get_file_name(self::ContractDOrdinary)
   dataDir = self.evenEdges ? ordinaryDataDirEven : ordinaryDataDirOdd
   s = @sprintf "contractD%d_%d.txt" self.nVertices self.nLoops
   return string(dataDir, s)
+end
+
+function get_unique_file_name(self::ContractDOrdinary)
+  prefix = self.evenEdges ? "ordinary_even_" : "ordinary_odd_"
+  s = @sprintf "contractD%d_%d.sms" self.nVertices self.nLoops
+  return string(prefix, s)
 end
 
 """Returns target graph vector space."""
