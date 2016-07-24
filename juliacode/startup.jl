@@ -26,6 +26,8 @@ include("DisplayHelpers.jl");
 
 include("OrdinaryGraphComplex.jl");
 
+include("OrdinaryGraphComplexWrapper.jl");
+
 include("EdgeMarkedGraphComplex.jl");
 
 include("RibbonGraphComplex.jl")
