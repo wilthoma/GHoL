@@ -10,5 +10,12 @@ function scheduleOrdinaryRanks()
   scheduleForRankComputations(L, skipExisting=true)
 end
 
-computeOrdinaryRanks()
-scheduleOrdinaryRanks()
+function scheduleAllOrdinaryRanks()
+  L = [ContractDOrdinary(v,l,ee) for v in 2:15, l in 2:15, ee in [true, false]]
+  L=L[:]
+  scheduleForRankComputations(L, skipExisting=true)
+end
+
+
+#computeOrdinaryRanks()
+#scheduleOrdinaryRanks()

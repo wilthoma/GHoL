@@ -8,12 +8,12 @@
 
 
 # here the translated copies of files reside
-ordinaryDataDirWrapperOdd = DATA_DIR + "/ordinarydatawrapper/oddedge/"
-ordinaryDataDirWrapperEven = DATA_DIR + "/ordinarydatawrapper/evenedge/"
+ordinaryDataDirWrapperOdd = joinpath(DATA_DIR, "ordinary_wrapper/oddedge/")
+ordinaryDataDirWrapperEven = joinpath(DATA_DIR, "ordinary_wrapper/evenedge/")
 
 # here is where the C++ code creates its files
-ordinaryDataDirWrapperOddC = DATA_DIR + "/ordinarydatawrapper/oddedgeC/"
-ordinaryDataDirWrapperEvenC = DATA_DIR + "/ordinarydatawrapper/evenedgeC/"
+ordinaryDataDirWrapperOddC = joinpath(DATA_DIR, "ordinary_wrapper/cdata/odd/")
+ordinaryDataDirWrapperEvenC = joinpath(DATA_DIR, "ordinary_wrapper/cdata/even/")
 
 # Path to the C++ program
 programC = "TODO/gradiff"
@@ -34,18 +34,28 @@ function get_file_name(self::OrdinaryGraphVectorSpaceWrapper)
 end
 
 """
+  The cohomological degree, for dimension = 2 if edges are odd and dimension 3 if edges are even
+"""
+function get_degree(self::OrdinaryGraphVectorSpaceWrapper)
+  nEdges = self.nLoops + self.nVertices -1
+  return self.evenEdges ? 3*self.nVertices-3-2*nEdges : 2*self.nVertices-2-nEdges
+end
+
+"""
   The list file name to which the C++ code writes the list. 
 """
 function get_file_nameC(self::OrdinaryGraphVectorSpaceWrapper)
   degree = get_degree(self)
   if self.evenEdges
     s = @sprintf "graev%d_%d.g6" self.nVertices degree
-    return string(ordinaryDataDirWrapperEvenC, s)
+    return joinpath(ordinaryDataDirWrapperEvenC, s)
   else
     s = @sprintf "gra%d_%d.g6" self.nVertices degree
-    return string(ordinaryDataDirWrapperOddC, s)
+    return joinpath(ordinaryDataDirWrapperOddC, s)
   end 
 end
+
+
 
 function get_svg_dir(self::OrdinaryGraphVectorSpaceWrapper)
   dataDir = self.evenEdges ? ordinaryDataDirWrapperEven : ordinaryDataDirWrapperOdd
@@ -128,13 +138,19 @@ function get_source(self::ContractDOrdinaryWrapper)
   return OrdinaryGraphVectorSpaceWrapper(self.nVertices, self.nLoops, self.evenEdges)
 end
 
-"""
-  The cohomological degree, for dimension = 2 if edges are odd and dimension 3 if edges are even
-"""
-function get_degree()
-  nEdges = self.nLoops + self.nVertices -1
-  return self.evenEdges ? 3*self.nVertices-3-2*nEdges : 2*self.nVertices-2-nEdges
+function get_file_nameC(self::ContractDOrdinaryWrapper)
+  svs = get_source(self)
+  degree = get_degree(svs)
+
+  if self.evenEdges
+    s = @sprintf "graev%d_%d.txt" self.nVertices degree
+    return joinpath(ordinaryDataDirWrapperEvenC, s)
+  else
+    s = @sprintf "gra%d_%d.txt" self.nVertices degree
+    return joinpath(ordinaryDataDirWrapperOddC, s)
+  end 
 end
+
 
 """For G a graph returns a list of pairs (GG, x),
    such that (operator)(G) = sum x GG.
@@ -183,7 +199,7 @@ function createListFile(self::OrdinaryGraphVectorSpaceWrapper;importOnly=false, 
 
         if !isfile(outFileC)
           if importOnly
-             println( "file not present, aborting." )
+             println( outFileC * ": file not present, aborting." )
              return
           else
              if !isdir(outDirC)
@@ -243,13 +259,14 @@ function createOperatorFile(self::ContractDOrdinaryWrapper;importOnly=false, ski
 
         if isfile(outFileC)
            try
-             A = read_matrix_file_plain(outFileC)
-
-             if A != []
-                write_matrix_file_sms(round(Int,A),outFile)
-             else
-               println("Empty Matrix. TODO")
-             end
+             # TODO: switch all internal storage to sms format
+             cp(outFileC, outFile)
+             #A = read_matrix_file_plain(outFileC)
+             #if A != []
+             #   write_matrix_file_sms(round(Int,A),outFile)
+             #else
+             #  println("Empty Matrix. TODO")
+             #end
            catch y
              println(y)
              println("Couldn't read file")            
@@ -258,5 +275,29 @@ function createOperatorFile(self::ContractDOrdinaryWrapper;importOnly=false, ski
         else
            println("failed.")   
         end
+
+end
+
+
+#----- visualization ---------------------
+function dispListCoverageOrdinaryWrapper(nDisplay=0)
+  data = []
+  nVR = collect(3:24)
+  nLR=collect(2:15)
+
+  for evenEdges in [true, false]
+    curdata = Array{Any}(length(nVR), length(nLR))
+    for (i,v) in enumerate(nVR)
+      for (j,l) in enumerate(nLR)
+        vs = OrdinaryGraphVectorSpaceWrapper(v,l,evenEdges)
+        dim = getDimension(vs)
+        deco = is_valid(vs) ? "" : "class=redcell"
+        curdata[i,j] = Dict("data"=>dim, "style"=>deco)
+      end
+    end
+    push!(data, curdata)
+  end
+
+  dispTables(["Even edges (vertices\\loops)", "Odd edges (vertices\\loops)"], Any[nLR, nLR], Any[nVR,nVR], data, nDisplay=nDisplay)
 
 end
