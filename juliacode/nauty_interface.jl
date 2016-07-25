@@ -4,8 +4,15 @@
 if isdefined(:the_nauty_lib)
   Libdl.dlclose(the_nauty_lib)
 end
-the_nauty_lib = Libdl.dlopen("../nauty_wrapper/nautywrap.dylib")
-
+#if isfile("../nauty_wrapper/nautywrap.dylib")
+  # Mac os
+#  the_nauty_lib = Libdl.dlopen("../nauty_wrapper/nautywrap.dylib")
+#elseif isfile("../nauty_wrapper/nautywrap.so")
+  # linux
+  the_nauty_lib = Libdl.dlopen("../nauty_wrapper/nautywrap.so")
+#else #TODO: windows
+#  error("Nauty wrapper not found")
+#end
 
 """
   Computes the canonical form of g, together with the permutation to normal form,

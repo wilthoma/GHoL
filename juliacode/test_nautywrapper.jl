@@ -12,6 +12,9 @@ function test_fastcanon()
         tempFile2 = get_temp_file_name()
         tempFile3 = get_temp_file_name()
         tempFile4 = get_temp_file_name()
+        if !isdir(dirname(tempFile1))
+            mkpath(dirname(tempFile1))
+        end
         open(tempFile1,"w") do f
           for G=L
             write(f,string(generate_graph6(G),"\n"))
@@ -224,7 +227,7 @@ function testOperatorCreation3()
 end
 
 #testListFileCreation()
-testListFileCreation2()
+#testListFileCreation2()
 #testOperatorCreation3()
 
 #test_fastcanon()
