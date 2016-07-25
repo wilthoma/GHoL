@@ -259,9 +259,10 @@ function dispOperatorCoverageOrdinary(nDisplay=0)
     for (i,v) in enumerate(nVR)
       for (j,l) in enumerate(nLR)
         vs = OrdinaryGraphVectorSpace(v,l,evenEdges)
+        theop=ContractDOrdinary(v,l,evenEdges)
         nrEntries = -1
         try
-          D = load_matrix(ContractDOrdinary(v,l,evenEdges))
+          D = load_matrix(theop)
           if D==[]
             nrEntries = 0
           else
@@ -269,7 +270,7 @@ function dispOperatorCoverageOrdinary(nDisplay=0)
           end
         catch
         end
-        deco = is_valid(vs) ? "" : "class=redcell"
+        deco = is_valid_op(theop) ? "" : "class=redcell"
 
         curdata[i,j] = Dict("data"=>nrEntries, "style"=>deco)
       end

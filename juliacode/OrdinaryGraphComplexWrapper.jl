@@ -16,7 +16,7 @@ ordinaryDataDirWrapperOddC = joinpath(DATA_DIR, "ordinary_wrapper/cdata/odd/")
 ordinaryDataDirWrapperEvenC = joinpath(DATA_DIR, "ordinary_wrapper/cdata/even/")
 
 # Path to the C++ program
-programC = "TODO/gradiff"
+programC = "../ordinary_ccode/gradiff"
 
 
 imgBaseDir = "img/"
@@ -180,6 +180,10 @@ Creates the list file for a single graph vector space.
 importOnly: if true, the C++ code is not called, only existing files are imported
 """
 function createListFile(self::OrdinaryGraphVectorSpaceWrapper;importOnly=false, skipExisting=false)
+        if !is_valid(self)
+          return
+        end
+        
         outFile = get_file_name(self)
         outFileC = get_file_nameC(self)
         outDir = dirname(outFile)
@@ -232,6 +236,10 @@ must exist when calling this function.
 """
 function createOperatorFile(self::ContractDOrdinaryWrapper;importOnly=false, skipExisting=false)
 
+        if !is_valid_op(self)
+          return
+        end
+
         #vs = get_source(self)
         outFile = get_file_name(self)
         outFileC = get_file_nameC(self)
@@ -248,7 +256,7 @@ function createOperatorFile(self::ContractDOrdinaryWrapper;importOnly=false, ski
 
         if !isfile(outFileC)
             if importOnly
-              println( "file not present, aborting." )
+              println( outFileC*": file not present, aborting." )
               return
             else
               #TODO
@@ -293,6 +301,49 @@ function dispListCoverageOrdinaryWrapper(nDisplay=0)
         dim = getDimension(vs)
         deco = is_valid(vs) ? "" : "class=redcell"
         curdata[i,j] = Dict("data"=>dim, "style"=>deco)
+      end
+    end
+    push!(data, curdata)
+  end
+
+  dispTables(["Even edges (vertices\\loops)", "Odd edges (vertices\\loops)"], Any[nLR, nLR], Any[nVR,nVR], data, nDisplay=nDisplay)
+
+end
+
+
+"""
+  Shows a table of the file size of operator.
+  Or -1 if operator could not be loaded.
+"""
+function dispOperatorCoverageOrdinaryWrapper(nDisplay=0)
+  data = []
+  nVR = collect(3:25)
+  nLR=collect(2:15)
+
+  for evenEdges in [true, false]
+    curdata = Array{Any}(length(nVR), length(nLR))
+    for (i,v) in enumerate(nVR)
+      for (j,l) in enumerate(nLR)
+        #vs = OrdinaryGraphVectorSpaceWrapper(v,l,evenEdges)
+        theop=ContractDOrdinaryWrapper(v,l,evenEdges)
+        nrEntries = -1
+        try
+          #D = load_matrix(theop)
+          #if D==[]
+          #  nrEntries = 0
+          #else
+          #  nrEntries = nnz(D)
+          #end
+          fff = get_file_name(theop)
+          if isfile(fff)
+            stats = stat(fff)
+            nrEntries=stats.size
+          end 
+        catch
+        end
+        deco = is_valid_op(theop) ? "" : "class=redcell"
+
+        curdata[i,j] = Dict("data"=>nrEntries, "style"=>deco)
       end
     end
     push!(data, curdata)

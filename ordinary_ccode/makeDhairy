@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Script that demos, command line args
+#
+nrv=$1
+deg=$2
+cfname="gra${nrv}_$deg"
+echo "$nrv vertices, degree $deg"
+echo "Computing graphs..."
+./gradiff_hairy -l -d$deg $nrv grahairy${nrv}_$deg.g6
+./gradiff_hairy -d$deg $nrv grahairy${nrv}_$deg.hg6
+nrvl=$(($1-1))
+degl=$(($2-1))
+./gradiff_hairy -l -d$degl $nrvl grahairy${nrvl}_$degl.g6
+nrvh=$(($1+1))
+degh=$(($2+1))
+./gradiff_hairy -d$degh $nrvh grahairy${nrvh}_$degh.hg6
+
+# translate into number format (for matlab)
+echo "Computing matrices..."
+./makemat_hairy grahairy${nrvl}_${degl}.g6 grahairy${nrv}_${deg}.hg6 > grahairy${nrv}_${deg}.txt
+./makemat_hairy grahairy${nrv}_${deg}.g6 grahairy${nrvh}_${degh}.hg6 > grahairy${nrvh}_${degh}.txt
