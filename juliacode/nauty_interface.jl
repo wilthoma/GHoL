@@ -1,15 +1,17 @@
 # nauty interface
 
+const NAUTYLIB = "../nauty_wrapper/nautywrap"
+
 # close and reopen to reload
-if isdefined(:the_nauty_lib)
-  Libdl.dlclose(the_nauty_lib)
-end
+#if isdefined(:the_nauty_lib)
+#  Libdl.dlclose(the_nauty_lib)
+#end
 #if isfile("../nauty_wrapper/nautywrap.dylib")
   # Mac os
 #  the_nauty_lib = Libdl.dlopen("../nauty_wrapper/nautywrap.dylib")
 #elseif isfile("../nauty_wrapper/nautywrap.so")
   # linux
-  the_nauty_lib = Libdl.dlopen("../nauty_wrapper/nautywrap.so")
+#  the_nauty_lib = Libdl.dlopen("../nauty_wrapper/nautywrap.so")
 #else #TODO: windows
 #  error("Nauty wrapper not found")
 #end
@@ -28,7 +30,7 @@ function fast_getcanon(g::SmallGraph, colors::Vector{Int32}, computeIsoms::Bool=
     #println(n)
     #println(num_edges(gg))
     buf = Array(Int32,500)
-    t = ccall( :canonlabel, Int32, (Ptr{UInt64},Int32,Ptr{Int32}, Ptr{Int32},Int32,Int32), gg.chunks,n, colors!=Void ?colors: C_NULL, buf, computeIsoms,true)
+    t = ccall( (:canonlabel, NAUTYLIB), Int32, (Ptr{UInt64},Int32,Ptr{Int32}, Ptr{Int32},Int32,Int32), gg.chunks,n, colors!=Void ?colors: C_NULL, buf, computeIsoms,true)
     t :: Int32
     #ps = reshape(buf[1:(t+1)*n], n,t+1)
     #println(num_edges(gg))
@@ -47,7 +49,7 @@ function get_canon(g::SmallGraph, colordata)
   #println(n)
   #println(num_edges(gg))
   buf = Array(Int32,500)
-  t = ccall( :canonlabel, Int32, (Ptr{UInt64},Int32,Ptr{Int32}, Ptr{Int32},Int32, Int32), gg.chunks,n, colordata!=Void ?colordata: C_NULL, buf, false, true)
+  t = ccall( (:canonlabel,NAUTYLIB), Int32, (Ptr{UInt64},Int32,Ptr{Int32}, Ptr{Int32},Int32, Int32), gg.chunks,n, colordata!=Void ?colordata: C_NULL, buf, false, true)
   t :: Int32
   #ps = reshape(buf[1:(t+1)*n], n,t+1)
   #println(num_edges(gg))
@@ -66,7 +68,7 @@ function get_canon_and_automorphisms(g::SmallGraph, colordata)
   #println(n)
   #println(num_edges(gg))
   buf = Array(Int32,500)
-  t = ccall( :canonlabel, Int32, (Ptr{UInt64},Int32,Ptr{Int32}, Ptr{Int32},Int32, Int32), gg.chunks,n, colordata!=Void ?colordata: C_NULL, buf, true, false)
+  t = ccall( (:canonlabel, NAUTYLIB), Int32, (Ptr{UInt64},Int32,Ptr{Int32}, Ptr{Int32},Int32, Int32), gg.chunks,n, colordata!=Void ?colordata: C_NULL, buf, true, false)
   t :: Int32
   #ps = reshape(buf[1:(t+1)*n], n,t+1)
   #println(num_edges(gg))
@@ -81,7 +83,7 @@ function get_canon(g::SmallDiGraph, colordata)
   #println(n)
   #println(num_edges(gg))
   buf = Array(Int32,500)
-  t = ccall( :canonlabeldi, Int32, (Ptr{UInt64},Int32,Ptr{Int32}, Ptr{Int32},Int32, Int32), gg.g.chunks,n, colordata!=Void ?colordata: C_NULL, buf, false, true)
+  t = ccall( (:canonlabeldi,NAUTYLIB), Int32, (Ptr{UInt64},Int32,Ptr{Int32}, Ptr{Int32},Int32, Int32), gg.g.chunks,n, colordata!=Void ?colordata: C_NULL, buf, false, true)
   t :: Int32
   #ps = reshape(buf[1:(t+1)*n], n,t+1)
   #println(num_edges(gg))
@@ -100,7 +102,7 @@ function get_canon_and_automorphisms(g::SmallDiGraph, colordata)
   #println(n)
   #println(num_edges(gg))
   buf = Array(Int32,500)
-  t = ccall( :canonlabeldi, Int32, (Ptr{UInt64},Int32,Ptr{Int32}, Ptr{Int32},Int32, Int32), gg.g.chunks,n, colordata!=Void ?colordata: C_NULL, buf, true, false)
+  t = ccall( (:canonlabeldi,NAUTYLIB), Int32, (Ptr{UInt64},Int32,Ptr{Int32}, Ptr{Int32},Int32, Int32), gg.g.chunks,n, colordata!=Void ?colordata: C_NULL, buf, true, false)
   t :: Int32
   #ps = reshape(buf[1:(t+1)*n], n,t+1)
   #println(num_edges(gg))
@@ -112,6 +114,6 @@ end
 function testingDi(g)
   gg = copy(g)
   n=num_vertices(g)
-  ccall( :testingdi, Int32, (Ptr{UInt64},Int32), gg.g.chunks,n)
+  ccall( (:testingdi,NAUTYLIB), Int32, (Ptr{UInt64},Int32), gg.g.chunks,n)
   return gg
 end

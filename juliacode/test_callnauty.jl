@@ -1,5 +1,5 @@
 
-thelib=Libdl.dlopen("../nauty_wrapper/nautywrap.dylib")
+thelib=Libdl.dlopen("../nauty_wrapper/nautywrap.so")
 
 function fast_generate_g6(g::SmallGraph)
   n = num_vertices(g)

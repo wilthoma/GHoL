@@ -1,4 +1,7 @@
+function test_simple()
 
+
+end
 
 function test_fastcanon()
         self = OrdinaryGraphVectorSpace(7,7,false)
@@ -230,4 +233,4 @@ end
 #testListFileCreation2()
 #testOperatorCreation3()
 
-#test_fastcanon()
+test_fastcanon()
