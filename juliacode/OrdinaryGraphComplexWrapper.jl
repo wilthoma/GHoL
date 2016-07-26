@@ -17,6 +17,7 @@ ordinaryDataDirWrapperEvenC = joinpath(DATA_DIR, "ordinary_wrapper/cdata/even/")
 
 # Path to the C++ program
 programC = "../ordinary_ccode/gradiff"
+makematC = "../ordinary_ccode/makemat"
 
 
 imgBaseDir = "img/"
@@ -174,6 +175,7 @@ function get_work_estimate(self::ContractDOrdinaryWrapper)
 end
 
 
+
 # ------ Overloads of creation functions ---------------
 """
 Creates the list file for a single graph vector space.
@@ -220,7 +222,7 @@ function createListFile(self::OrdinaryGraphVectorSpaceWrapper;importOnly=false, 
         end
 
         if isfile(outFileC)
-            cp(outFileC, outFile)
+            mycp(outFileC, outFile)
             println( "copied." )
         else
            println("failed!")
@@ -244,7 +246,8 @@ function createOperatorFile(self::ContractDOrdinaryWrapper;importOnly=false, ski
         outFile = get_file_name(self)
         outFileC = get_file_nameC(self)
         #inListFileC = get_file_nameC(vs)
-        #tvs = get_target(self)
+        src = get_source(self)
+        tgt = get_target(self)
         #tgtListFileC = get_file_nameC(tvs)
 
         if skipExisting && isfile(outFile)
@@ -259,16 +262,34 @@ function createOperatorFile(self::ContractDOrdinaryWrapper;importOnly=false, ski
               println( outFileC*": file not present, aborting." )
               return
             else
-              #TODO
-              #println("Cannot create operator file: First create list file $tgtListFile")
+              
+              tgtListFileC = get_file_nameC(tgt)
+              preoutFileC = outFileC[1:end-3] * "hg6" # change ending
+              if !isfile(tgtListFileC)
+                println("List file does not exist: "*tgtListFileC*"...skipping.")
+                return                 
+              end
 
+              degree= get_degree(src)
+              
+              if self.evenEdges
+                run(`$programC -e -d$degree $(self.nVertices) $preoutFileC`)
+              else
+                run(`$programC -d$degree $(self.nVertices) $preoutFileC`)
+              end
+
+              # make matrix file
+              println("Creating matrix....")
+              println(`$makematC $tgtListFileC $preoutFileC`)
+              run(pipeline(`$makematC $tgtListFileC $preoutFileC`,outFileC) )
+              println("Done.")
             end
         end
 
         if isfile(outFileC)
            try
              # TODO: switch all internal storage to sms format
-             cp(outFileC, outFile)
+             mycp(outFileC, outFile)
              #A = read_matrix_file_plain(outFileC)
              #if A != []
              #   write_matrix_file_sms(round(Int,A),outFile)
@@ -285,6 +306,9 @@ function createOperatorFile(self::ContractDOrdinaryWrapper;importOnly=false, ski
         end
 
 end
+
+
+
 
 
 #----- visualization ---------------------
@@ -314,6 +338,7 @@ end
 """
   Shows a table of the file size of operator.
   Or -1 if operator could not be loaded.
+  The number in brackets is the rank, or -1 if not computed
 """
 function dispOperatorCoverageOrdinaryWrapper(nDisplay=0)
   data = []
@@ -326,7 +351,7 @@ function dispOperatorCoverageOrdinaryWrapper(nDisplay=0)
       for (j,l) in enumerate(nLR)
         #vs = OrdinaryGraphVectorSpaceWrapper(v,l,evenEdges)
         theop=ContractDOrdinaryWrapper(v,l,evenEdges)
-        nrEntries = -1
+        fsize = -1
         try
           #D = load_matrix(theop)
           #if D==[]
@@ -336,19 +361,46 @@ function dispOperatorCoverageOrdinaryWrapper(nDisplay=0)
           #end
           fff = get_file_name(theop)
           if isfile(fff)
-            stats = stat(fff)
-            nrEntries=stats.size
+            fsize=filesize(fff)
           end 
         catch
         end
+
+        rnk = readRank(theop)
+        
         deco = is_valid_op(theop) ? "" : "class=redcell"
 
-        curdata[i,j] = Dict("data"=>nrEntries, "style"=>deco)
+        curdata[i,j] = Dict("data"=>"$rnk", "style"=>deco)
       end
     end
     push!(data, curdata)
   end
 
   dispTables(["Even edges (vertices\\loops)", "Odd edges (vertices\\loops)"], Any[nLR, nLR], Any[nVR,nVR], data, nDisplay=nDisplay)
+
+end
+
+function dispCohomologyOrdinaryWrapper(nDisplay=0)
+  data = []
+  nVR = collect(3:20)
+  nLR=collect(2:10)
+
+  for evenEdges in [true, false]
+    curdata = Array{Any}(length(nVR), length(nLR))
+    for (i,v) in enumerate(nVR)
+      for (j,l) in enumerate(nLR)
+        vs = OrdinaryGraphVectorSpaceWrapper(v,l,evenEdges)
+        op = ContractDOrdinaryWrapper(v,l,evenEdges)
+        op2 = ContractDOrdinaryWrapper(v+1,l,evenEdges)
+
+        dim = get_cohomology_by_rank(op, op2)
+        deco = is_valid(vs) ? "" : "class=redcell"
+        curdata[i,j] = Dict("data"=>dim, "style"=>deco)
+      end
+    end
+    push!(data, curdata)
+  end
+
+  dispTables(["Cohomology Even edges (vertices\\loops)", "Cohomology Odd edges (vertices\\loops)"], Any[nLR, nLR], Any[nVR,nVR], data, nDisplay=nDisplay)
 
 end

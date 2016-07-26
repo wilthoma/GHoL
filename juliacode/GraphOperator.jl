@@ -237,15 +237,19 @@ function load_matrix{S, T}(self::GraphOperator{S,T})
     else
         A=[]
         try
-          A = readdlm(inFile)
-        catch
+          #A = readdlm(inFile)
+          A=read_matrix_file_plain(inFile)
+        catch y
           # readdlm fails on empty files, corresponding to empty matrices
+          println(self)
+          println(y)
           return []
         end
 
         #println(A)
         # unfortunately, scipy cannot handle size zero sparse matrices
-        return sparse(round(Int,A[:,1]),round(Int,A[:,2]),round(Int128,A[:,3])//1)
+        #return sparse(round(Int,A[:,1]),round(Int,A[:,2]),round(Int128,A[:,3])//1)
+        return A
     end
 end
 
@@ -378,7 +382,6 @@ function get_cohomology{U,S, T}(operatorD::GraphOperator{S,T},operatorDD::GraphO
           return NN
       end
 end
-
 
 
 """
@@ -559,6 +562,9 @@ function commuteTestGeneric(oplst1, oplst2; antiCommute = false)
   end
 end
 
+function get_rank_file{S, T}(self::GraphOperator{S,T})
+    return get_file_name(self) * ".rank.txt"
+end
 
 """
   readRank
@@ -572,10 +578,10 @@ function readRank{S, T}(self::GraphOperator{S,T})
       return 0
     end
 
-    RankFile1 = get_file_name(self) + ".rank"
+    RankFile1 = get_rank_file(self)
     RankFile2 = joinpath(EXCHANGE_DIR_RANK , get_unique_file_name(self) + ".rank")
     if isfile(RankFile1)
-       c = readAllLines(RankFile1)
+       c = readall(RankFile1)
        return parse(Int, c)
     elseif isfile(RankFile2)
        c = readAllLines(RankFile2)
@@ -598,7 +604,7 @@ function computeRank{S, T}(self::GraphOperator{S,T})
       return 0
     end
 
-    RankFile = get_file_name(self) + ".rank"
+    RankFile = get_rank_file(self)
     A = load_matrix(self)
     r=0
     if A != []
@@ -606,12 +612,14 @@ function computeRank{S, T}(self::GraphOperator{S,T})
     end
 
     outfile = open(RankFile, "w")
-    write(outfile, r)
+    write(outfile, "$r")
     close(outfile)
 
     return r
 
 end
+
+
 
 """
   scheduleForRankComputation
@@ -622,12 +630,20 @@ end
 """
 function scheduleForRankComputation{S, T}(self::GraphOperator{S,T}; skipExisting= false)
     if !(is_valid_op(self))
+      #println(self)
       return
     end
     ExchangeMatrixFile = joinpath(EXCHANGE_DIR_RANK , get_unique_file_name(self))
     if skipExisting && isfile(ExchangeMatrixFile)
       println("Skipping $ExchangeMatrixFile...")
       return
+    end
+    matfile = get_file_name(self)
+    if !isfile(matfile)
+      println(matfile*": file not present, skipping.")
+      return
+    else
+      #println(matfile*": file present")
     end
     A = load_matrix(self)
     if A != []
@@ -636,11 +652,12 @@ function scheduleForRankComputation{S, T}(self::GraphOperator{S,T}; skipExisting
       if !isdir(outDir)
           mkpath(outDir)
       end
-      write_matrix_file_sms(A, ExchangeMatrixFile)
+      #write_matrix_file_sms(A, ExchangeMatrixFile)
+      write_matrix_file_sms(round(Int,A), ExchangeMatrixFile)
       println("Wrote $ExchangeMatrixFile.")
     else
       # don't schedule empty files, just report 0 rank
-      RankFile = get_file_name(self) + ".rank"
+      RankFile = get_rank_file(self)
       outfile = open(RankFile, "w")
       write(outfile, "0")
       close(outfile)
@@ -658,12 +675,34 @@ end
 
 function computeRanks(oplist; skipExisting= true)
     for op in oplist
-      RankFile = get_file_name(op) + ".rank"
-      if (isfile(RankFile))
+      RankFile = get_rank_file(op)
+      if (skipExisting && isfile(RankFile))
         println("Skipping $RankFile...")
       else
         println("Computing rank, output to $RankFile...")
         computeRank(op)
       end
     end
+end
+
+
+"""
+  Computes the homology as dim(V) -rank(D) -rank(DD)
+  Returns 0 is insufficient information is present (e.g., rank files missing)
+"""
+function get_cohomology_by_rank{U,S, T}(operatorD::GraphOperator{S,T},operatorDD::GraphOperator{U,S})
+  vs = get_source(operatorD)
+  if !is_valid(vs) 
+    return 0
+  end
+  d = getDimension(vs)
+  if d<0 
+    return -1 # list file not yet computed
+  end
+  rD = readRank(operatorD)
+  rDD = readRank(operatorDD)
+  if rD<0 || rDD <0
+    return -1
+  end
+  return d - rD - rDD
 end

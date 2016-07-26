@@ -29,6 +29,16 @@ function get_temp_file_name()
 end
 
 
+"""
+  File copy ( cp(...) ) is broken in Julia in that only files <2G can  be copied.
+  When the bug is fixed in Julia, this should be replaced by cp() again.
+  ToDO: make platform independent. 
+"""
+function mycp(fromFile, toFile)
+  println(`cp $fromFile $toFile`)
+  run(`cp $fromFile $toFile`)
+end
+
 function parsePerm(s)
     aa = split(s)
     return [parse(Int,a)+1 for a in aa]
@@ -271,6 +281,9 @@ end
   the max row and column entries determine the matrix size
 """
 function read_matrix_file_plain(cFile)
+  if filesize(cFile) == 0
+    return []  # readdlm cannot process empty files
+  end
   A = readdlm(cFile)
   if A==[]
     return []
@@ -278,15 +291,19 @@ function read_matrix_file_plain(cFile)
     # remove 0-index entries (those are to be ignored... this is a legacy thing)
     I = round(Int,A[:,1])
     J = round(Int,A[:,2])
+    m=maximum(I)
+    n=maximum(J)
+    if m*n == 0
+      return []
+    end
     good =  ((I.>0) & (J .>0))
-    return sparse(I[good],J[good], A[good,3])
+    return sparse(I[good],J[good], A[good,3],m,n)
   end
 end
 
 """
   reads a sparse matrix file in sms format
   row col entry
-  the max row and column entries determine the matrix size
 """
 function read_matrix_file_sms(cFile)
   data, hdr = readdlm(cFile, header=true)

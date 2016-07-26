@@ -7,5 +7,5 @@
 DATA_DIR="/run/media/wilthoma/TOSHIBA EXT/gholdata"
 
 # The directory where matrix files are queued for external rank computation
-EXCHANGE_DIR_RANK="../../exchange/rank"
+EXCHANGE_DIR_RANK="/run/media/wilthoma/TOSHIBA EXT/exchange/rank"
 
