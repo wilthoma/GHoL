@@ -18,8 +18,8 @@ hairyDataDirWrapperC = joinpath(DATA_DIR, "hairy_wrapper/cdata/")
 
 
 # Path to the C++ program
-programC = "../ordinary_ccode/gradiff_hairy"
-makematC = "../ordinary_ccode/makemat_hairy"
+gradiff_hairy = "../ordinary_ccode/gradiff_hairy"
+makemat_hairy = "../ordinary_ccode/makemat_hairy"
 
 imgBaseDir = "img/"
 
@@ -50,14 +50,18 @@ function get_degree(self::HairyGraphVectorSpaceWrapper)
   return self.evenEdges ? 3*nVert-3-2*nEdges : 2*nVert-2-nEdges
 end
 
+function get_prefix(self::HairyGraphVectorSpaceWrapper)
+  return self.evenEdges ? (self.evenHairs ? "graevohairy" : "graevhairy") : (self.evenHairs ? "grahairy" : "graohairy") 
+end
 """
   The list file name to which the C++ code writes the list. 
+  Mind that vector spaces with all numbers of hairs are generated simultaneously by gradiff_hairy.
 """
-function get_file_nameC(self::HairyGraphVectorSpaceWrapperBlock)
+function get_file_nameC(self::HairyGraphVectorSpaceWrapper)
   degree = get_degree(self)
-  prefix = self.evenEdges ? (self.evenHairs ? "graevohairy" : "graevhairy") : (self.evenHairs ? "grahairy" : "graohairy") 
+  prefix = get_prefix(self)
 
-    s = "$prefix$(self.nVertices+self.nHairs)_$degree.g6"
+    s = "$prefix$(self.nVertices+self.nHairs)_$degree.g6" # mind: nHairs does not appear explicitly, cf. above
     return joinpath(hairyDataDirWrapperC, s)
 end
 
@@ -91,27 +95,25 @@ function is_valid(self::HairyGraphVectorSpaceWrapper)
         return l
 end
 
-#function get_base(self::HairyGraphVectorSpaceWrapper)
-#    return HairyGraphVectorSpace(self.nVertices, self.nLoops, self.evenEdges)
-#end
+function get_base(self::HairyGraphVectorSpaceWrapper)
+    return HairyGraphVectorSpace(self.nVertices, self.nLoops, self.nHairs, self.evenEdges, self.evenHairs)
+end
 
-"""Produces a set of graphs whose isomorphism classes span the T component of the vector space.
-   (Not necessarily freely!)"""
 function get_generating_graphs(self::HairyGraphVectorSpaceWrapper)
     error("This routine should not be called, this is only a wrapper")
 end
 
 """For G a graph and p a permutation of the edges, returns the sign induced by the relabelling by p.
    Here vertex j becomes vertex p[j] in the new graph."""
-#function get_perm_sign(self::HairyGraphVectorSpaceWrapper, G::SmallGraph, p)
-#    return get_perm_sign(get_base(self), G, p)
-#end
+function get_perm_sign(self::HairyGraphVectorSpaceWrapper, G::SmallGraph, p)
+    return get_perm_sign(get_base(self), G, p)
+end
 
 """Converts the graph to a graphviz dot format string.
    This method is used only for visualization, not for computation."""
-#function get_dot(self::OrdinaryGraphVectorSpaceWrapper, G)
-#    return get_dot(get_base(self), G)
-#end
+function get_dot(self::HairyGraphVectorSpaceWrapper, G)
+    return get_dot(get_base(self), G)
+end
 
 
 # -----  Contraction operator --------
@@ -145,42 +147,40 @@ function get_file_name(self::ContractDHairyWrapper)
   return joinpath(dataDir, s)
 end
 
-function get_unique_file_name(self::ContractDOrdinaryWrapper)
+function get_unique_file_name(self::ContractDHairyWrapper)
   prefix = "hairy_" * (self.evenEdges ? "E":"O") * (self.evenHairs ? "E":"O") * "_"
   s = @sprintf "contractDWrapper%d_%d.sms" self.nVertices self.nLoops
   return string(prefix, s)
 end
 
+
 """
-function get_file_nameC(self::ContractDOrdinaryWrapper)
+Mind again that gradiff_hairy computes all nrs of hairs simultaneously.
+"""
+function get_file_nameC(self::ContractDHairyWrapper)
   svs = get_source(self)
   degree = get_degree(svs)
+  prefix = get_prefix(svs)
 
-  if self.evenEdges
-    s = @sprintf "graev%d_%d.txt" self.nVertices degree
-    return joinpath(ordinaryDataDirWrapperEvenC, s)
-  else
-    s = @sprintf "gra%d_%d.txt" self.nVertices degree
-    return joinpath(ordinaryDataDirWrapperOddC, s)
-  end 
+ 
+    s = "$prefix$(self.nVertices+self.nHairs)_$degree.txt"
+    return joinpath(hairyDataDirWrapperC, s)
+  
 end
-"""
 
-"""For G a graph returns a list of pairs (GG, x),
-   such that (operator)(G) = sum x GG.
-"""
+
 function operate_on(self::ContractDOrdinaryWrapper, G::SmallGraph)
     error("This should not be called")
 end
 
-function get_work_estimate(self::OrdinaryGraphVectorSpaceWrapper)
+function get_work_estimate(self::HairyGraphVectorSpaceWrapper)
   # give estimate of number of graphs
   nEdges = self.nLoops + self.nVertices -1
   n = self.nVertices
   return binomial(div(n*(n-1),2), nEdges) / factorial(n)
 end
 
-function get_work_estimate(self::ContractDOrdinaryWrapper)
+function get_work_estimate(self::ContractDHairyWrapper)
   # give estimate of number of graphs
   vs = get_source(self)
   nEdges = vs.nLoops + vs.nVertices -1
@@ -194,7 +194,7 @@ end
 Creates the list file for a single graph vector space.
 importOnly: if true, the C++ code is not called, only existing files are imported
 """
-function createListFile(self::OrdinaryGraphVectorSpaceWrapper;importOnly=false, skipExisting=false)
+function createListFile(self::HairyGraphVectorSpaceWrapper;importOnly=false, skipExisting=false)
         if !is_valid(self)
           return
         end
@@ -226,16 +226,22 @@ function createListFile(self::OrdinaryGraphVectorSpaceWrapper;importOnly=false, 
              end
              println( "Calling external program." )
              degree = get_degree(self)
-             if self.evenEdges
-                run(`$programC -l -e -d$degree $(self.nVertices) $outFileC`)
-             else
-                run(`$programC -l -d$degree $(self.nVertices) $outFileC`)
-             end
+             run(`$gradiff_hairy -l $(self.evenEdges?"-e":"") $(self.evenHairs==self.evenEdges?"-o":"") -d$degree $(self.nVertices+self.nHairs) $outFileC`)
           end
         end
 
         if isfile(outFileC)
-            mycp(outFileC, outFile)
+            # pick only the part of the file with correct number of hairs
+            if filesize(outFileC)>0
+              A = readdlm(outFileC)
+              B=A[A[:,2].==self.nHairs,3]
+              writedlm(outFile, B)
+             else
+               # write an empty file 
+               fff=open(outFile, "w")
+               close(fff)
+             end
+            
             println( "copied." )
         else
            println("failed!")
@@ -249,7 +255,7 @@ Creates the matrix file that holds the operator.
 The corresponding list files for source and target
 must exist when calling this function.
 """
-function createOperatorFile(self::ContractDOrdinaryWrapper;importOnly=false, skipExisting=false)
+function createOperatorFile(self::ContractDHairyWrapper;importOnly=false, skipExisting=false)
 
         if !is_valid_op(self)
           return
@@ -285,16 +291,12 @@ function createOperatorFile(self::ContractDOrdinaryWrapper;importOnly=false, ski
 
               degree= get_degree(src)
               
-              if self.evenEdges
-                run(`$programC -e -d$degree $(self.nVertices) $preoutFileC`)
-              else
-                run(`$programC -d$degree $(self.nVertices) $preoutFileC`)
-              end
-
+              run(`$gradiff_hairy $(self.evenEdges?"-e":"") $(self.evenHairs==self.evenEdges?"-o":"") -d$degree $(self.nVertices+self.nHairs) $outFileC`)
+          
               # make matrix file
               println("Creating matrix....")
-              println(`$makematC $tgtListFileC $preoutFileC`)
-              run(pipeline(`$makematC $tgtListFileC $preoutFileC`,outFileC) )
+              println(`$makemat_hairy $tgtListFileC $preoutFileC`)
+              run(pipeline(`$makemat_hairy $tgtListFileC $preoutFileC`,outFileC) )
               println("Done.")
             end
         end
@@ -302,13 +304,23 @@ function createOperatorFile(self::ContractDOrdinaryWrapper;importOnly=false, ski
         if isfile(outFileC)
            try
              # TODO: switch all internal storage to sms format
-             mycp(outFileC, outFile)
+             #mycp(outFileC, outFile)
              #A = read_matrix_file_plain(outFileC)
              #if A != []
              #   write_matrix_file_sms(round(Int,A),outFile)
              #else
              #  println("Empty Matrix. TODO")
              #end
+             if filesize(outFileC)>0
+               A = readdlm(outFileC)
+               B = A[A[:,1].==self.nHairs,2:3]
+               writedlm(outFile, B)
+             else
+               # write an empty file 
+               fff=open(outFile, "w")
+               close(fff)
+             end
+
            catch y
              println(y)
              println("Couldn't read file")            
@@ -325,25 +337,36 @@ end
 
 
 #----- visualization ---------------------
-function dispListCoverageOrdinaryWrapper(nDisplay=0)
+function dispListCoverageHairyWrapper(nDisplay=0)
   data = []
   nVR = collect(3:24)
   nLR=collect(2:15)
+  nHR=collect(1:15)
+  captions=[]
+  xHdrs=[]
+  yHdrs=[]
 
   for evenEdges in [true, false]
+   for evenHairs in [true, false]
+   for (k,h) in enumerate(nHR) 
     curdata = Array{Any}(length(nVR), length(nLR))
     for (i,v) in enumerate(nVR)
-      for (j,l) in enumerate(nLR)
-        vs = OrdinaryGraphVectorSpaceWrapper(v,l,evenEdges)
-        dim = getDimension(vs)
-        deco = is_valid(vs) ? "" : "class=redcell"
-        curdata[i,j] = Dict("data"=>dim, "style"=>deco)
+      for (j,l) in enumerate(nLR)        
+          vs = HairyGraphVectorSpaceWrapper(v,l,h,evenEdges, evenHairs)
+          dim = getDimension(vs)
+          deco = is_valid(vs) ? "" : "class=redcell"
+          curdata[i,j] = Dict("data"=>dim, "style"=>deco)
       end
     end
     push!(data, curdata)
+    push!(captions, "$h-HairyWrapper"*(evenEdges?"E":"O")*(evenHairs?"E":"O")*" (vertices\\loops)" )
+    push!(xHdrs, nLR)
+    push!(yHdrs, nVR)
+    end
+   end
   end
 
-  dispTables(["Even edges (vertices\\loops)", "Odd edges (vertices\\loops)"], Any[nLR, nLR], Any[nVR,nVR], data, nDisplay=nDisplay)
+  dispTables(captions, xHdrs, yHdrs, data, nDisplay=nDisplay)
 
 end
 
@@ -353,67 +376,82 @@ end
   Or -1 if operator could not be loaded.
   The number in brackets is the rank, or -1 if not computed
 """
-function dispOperatorCoverageOrdinaryWrapper(nDisplay=0)
+function dispOperatorCoverageHairyWrapper(nDisplay=0)
   data = []
-  nVR = collect(3:25)
+  nVR = collect(3:24)
   nLR=collect(2:15)
+  nHR=collect(1:15)
+  captions=[]
+    xHdrs=[]
+  yHdrs=[]
 
   for evenEdges in [true, false]
+   for evenHairs in [true, false]
+   for (k,h) in enumerate(nHR) 
     curdata = Array{Any}(length(nVR), length(nLR))
     for (i,v) in enumerate(nVR)
-      for (j,l) in enumerate(nLR)
-        #vs = OrdinaryGraphVectorSpaceWrapper(v,l,evenEdges)
-        theop=ContractDOrdinaryWrapper(v,l,evenEdges)
-        fsize = -1
-        try
-          #D = load_matrix(theop)
-          #if D==[]
-          #  nrEntries = 0
-          #else
-          #  nrEntries = nnz(D)
-          #end
-          fff = get_file_name(theop)
-          if isfile(fff)
-            fsize=filesize(fff)
-          end 
-        catch
-        end
+      for (j,l) in enumerate(nLR)        
+          theop=ContractDHairyWrapper(v,l,h,evenEdges, evenHairs)
+          fsize = -1
+          try
+            fff = get_file_name(theop)
+            if isfile(fff)
+              fsize=filesize(fff)
+            end 
+          catch
+          end
 
-        rnk = readRank(theop)
-        
+        rnk = readRank(theop)        
         deco = is_valid_op(theop) ? "" : "class=redcell"
-
-        curdata[i,j] = Dict("data"=>"$rnk", "style"=>deco)
+        curdata[i,j] = Dict("data"=>"$fsize ($rnk)", "style"=>deco)
       end
     end
     push!(data, curdata)
-  end
+    push!(captions, "ContractDWrapper $h-Hairy"*(evenEdges?"E":"O")*(evenHairs?"E":"O")*" (vertices\\loops)" )
+        push!(xHdrs, nLR)
+    push!(yHdrs, nVR) 
+    end
+   end
+   end
 
-  dispTables(["Even edges (vertices\\loops)", "Odd edges (vertices\\loops)"], Any[nLR, nLR], Any[nVR,nVR], data, nDisplay=nDisplay)
+    dispTables(captions, xHdrs, yHdrs, data, nDisplay=nDisplay)
 
 end
 
-function dispCohomologyOrdinaryWrapper(nDisplay=0)
+function dispCohomologyHairyWrapper(nDisplay=0)
   data = []
-  nVR = collect(3:20)
-  nLR=collect(2:10)
+  nVR = collect(3:24)
+  nLR=collect(2:15)
+  nHR=collect(1:15)
+  captions=[]
+    xHdrs=[]
+  yHdrs=[]
 
   for evenEdges in [true, false]
-    curdata = Array{Any}(length(nVR), length(nLR))
-    for (i,v) in enumerate(nVR)
-      for (j,l) in enumerate(nLR)
-        vs = OrdinaryGraphVectorSpaceWrapper(v,l,evenEdges)
-        op = ContractDOrdinaryWrapper(v,l,evenEdges)
-        op2 = ContractDOrdinaryWrapper(v+1,l,evenEdges)
+   for evenHairs in [true, false]
+     for (k,h) in enumerate(nHR) 
+        curdata = Array{Any}(length(nVR), length(nLR))
+        for (i,v) in enumerate(nVR)
+            for (j,l) in enumerate(nLR)        
+                vs = HairyGraphVectorSpaceWrapper(v,l,h,evenEdges,evenHairs)
+                op = ContractDHairyWrapper(v,l,h,evenEdges,evenHairs)
+                op2 = ContractDHairyWrapper(v+1,l,h,evenEdges,evenHairs)
 
-        dim = get_cohomology_by_rank(op, op2)
-        deco = is_valid(vs) ? "" : "class=redcell"
-        curdata[i,j] = Dict("data"=>dim, "style"=>deco)
-      end
+                dim = get_cohomology_by_rank(op, op2)
+                deco = is_valid(vs) ? "" : "class=redcell"
+                curdata[i,j] = Dict("data"=>dim, "style"=>deco)
+            end
+        end
+        push!(data, curdata)
+        push!(captions, "Cohomology Wrapper $h-Hairy"*(evenEdges?"E":"O")*(evenHairs?"E":"O")*" (vertices\\loops)" )
+        push!(xHdrs, nLR)
+        push!(yHdrs, nVR)
+     end 
     end
-    push!(data, curdata)
-  end
+   end
+  
+    dispTables(captions, xHdrs, yHdrs, data, nDisplay=nDisplay)
 
-  dispTables(["Cohomology Even edges (vertices\\loops)", "Cohomology Odd edges (vertices\\loops)"], Any[nLR, nLR], Any[nVR,nVR], data, nDisplay=nDisplay)
 
 end
+

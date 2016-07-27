@@ -30,6 +30,8 @@ include("OrdinaryGraphComplexWrapper.jl");
 
 include("HairyGraphComplex.jl")
 
+include("HairyComplexWrapper.jl")
+
 include("EdgeMarkedGraphComplex.jl");
 
 include("RibbonGraphComplex.jl")
