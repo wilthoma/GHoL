@@ -41,8 +41,8 @@ function get_generating_graphs{T}(self::GraphVectorSpace{T})
 end
 
 """Internally, each graph is considered colored. This method returns a
-   string indicating which colors the vertices have. E.g., 'aaabb' means the
-   first 3 vertices have color a, then the next 2 color b, and the rest color z."""
+   vector indicating the coloring, cf. color_counts_to_nauty_fmt().
+"""
 function get_color_counts{T}(self::GraphVectorSpace{T})
   error("Not implemented")
 end

@@ -91,13 +91,7 @@ end
 """Converts the graph to a graphviz dot format string.
    This method is used only for visualization, not for computation."""
 function get_dot(self::OrdinaryGraphVectorSpace, G)
-    ret = "graph {\n"
-    for e = edges(G)
-        u,v = e
-        ret = string(ret, "$u -- $v;\n")
-    end
-    ret = string(ret, "}")
-    return ret
+    return render_to_dot(G)
 end
 
 

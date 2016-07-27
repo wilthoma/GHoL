@@ -7,141 +7,151 @@
 #######################################################################
 
 
-# here the translated copies of files reside
-ordinaryDataDirWrapperOdd = joinpath(DATA_DIR, "ordinary_wrapper/oddedge/")
-ordinaryDataDirWrapperEven = joinpath(DATA_DIR, "ordinary_wrapper/evenedge/")
+# here the translated copies of files reside, letters OE=odd edges, even hair(-vertices)
+hairyDataDirWrapperOO = joinpath(DATA_DIR, "hairy_wrapper/OO/")
+hairyDataDirWrapperOE = joinpath(DATA_DIR, "hairy_wrapper/OE/")
+hairyDataDirWrapperEE = joinpath(DATA_DIR, "hairy_wrapper/EE/")
+hairyDataDirWrapperEO = joinpath(DATA_DIR, "hairy_wrapper/EO/")
 
 # here is where the C++ code creates its files
-ordinaryDataDirWrapperOddC = joinpath(DATA_DIR, "ordinary_wrapper/cdata/odd/")
-ordinaryDataDirWrapperEvenC = joinpath(DATA_DIR, "ordinary_wrapper/cdata/even/")
+hairyDataDirWrapperC = joinpath(DATA_DIR, "hairy_wrapper/cdata/")
+
 
 # Path to the C++ program
-programC = "../ordinary_ccode/gradiff"
-makematC = "../ordinary_ccode/makemat"
-
+programC = "../ordinary_ccode/gradiff_hairy"
+makematC = "../ordinary_ccode/makemat_hairy"
 
 imgBaseDir = "img/"
 
-type OrdinaryGraphVectorSpaceWrapper <: GraphVectorSpace{SmallGraph}
-  nVertices :: Int
+type HairyGraphVectorSpaceWrapper <: GraphVectorSpace{SmallGraph}
+  nVertices :: Int # this excludes hair vertices
   nLoops :: Int
+  nHairs :: Int
   evenEdges :: Bool
+  evenHairs :: Bool # this refers to the vertex at the end of the hair, not the whole hair
 end
 
-function get_file_name(self::OrdinaryGraphVectorSpaceWrapper)
-  dataDir = self.evenEdges ? ordinaryDataDirWrapperEven : ordinaryDataDirWrapperOdd
-  s = @sprintf "gra%d_%d.g6" self.nVertices self.nLoops
+function get_dataDir(self::HairyGraphVectorSpaceWrapper)
+    return self.evenEdges ? ( self.evenHairs ? hairyDataDirWrapperEE : hairyDataDirWrapperEO) : ( self.evenHairs ? hairyDataDirWrapperOE : hairyDataDirWrapperOO)
+end
+
+function get_file_name(self::HairyGraphVectorSpaceWrapper)
+  dataDir = get_dataDir(self)
+  s = @sprintf "gra%d_%d_%d.g6" self.nVertices self.nLoops self.nHairs
   return string(dataDir, s)
 end
 
 """
   The cohomological degree, for dimension = 2 if edges are odd and dimension 3 if edges are even
 """
-function get_degree(self::OrdinaryGraphVectorSpaceWrapper)
-  nEdges = self.nLoops + self.nVertices -1
-  return self.evenEdges ? 3*self.nVertices-3-2*nEdges : 2*self.nVertices-2-nEdges
+function get_degree(self::HairyGraphVectorSpaceWrapper)
+  nEdges = self.nLoops + self.nVertices -1 + self.nHairs
+  nVert = self.nVertices + self.nHairs
+  return self.evenEdges ? 3*nVert-3-2*nEdges : 2*nVert-2-nEdges
 end
 
 """
   The list file name to which the C++ code writes the list. 
 """
-function get_file_nameC(self::OrdinaryGraphVectorSpaceWrapper)
+function get_file_nameC(self::HairyGraphVectorSpaceWrapperBlock)
   degree = get_degree(self)
-  if self.evenEdges
-    s = @sprintf "graev%d_%d.g6" self.nVertices degree
-    return joinpath(ordinaryDataDirWrapperEvenC, s)
-  else
-    s = @sprintf "gra%d_%d.g6" self.nVertices degree
-    return joinpath(ordinaryDataDirWrapperOddC, s)
-  end 
+  prefix = self.evenEdges ? (self.evenHairs ? "graevohairy" : "graevhairy") : (self.evenHairs ? "grahairy" : "graohairy") 
+
+    s = "$prefix$(self.nVertices+self.nHairs)_$degree.g6"
+    return joinpath(hairyDataDirWrapperC, s)
 end
 
 
-
-function get_svg_dir(self::OrdinaryGraphVectorSpaceWrapper)
-  dataDir = self.evenEdges ? ordinaryDataDirWrapperEven : ordinaryDataDirWrapperOdd
-  s = @sprintf "imgs%d_%d/" self.nVertices self.nLoops
+function get_svg_dir(self::HairyGraphVectorSpaceWrapper)
+  dataDir = get_dataDir(self)
+  s = @sprintf "imgs%d_%d_%d/" self.nVertices self.nLoops self.nHairs
   return string(dataDir, imgBaseDir, s)
 end
 
 
-function get_color_counts(self::OrdinaryGraphVectorSpaceWrapper)
+function get_color_counts(self::HairyGraphVectorSpaceWrapper)
         error("This routine should not be called, this is only a wrapper")
 end
 
-function get_fstring(self::OrdinaryGraphVectorSpaceWrapper)
+function get_fstring(self::HairyGraphVectorSpaceWrapper)
         error("This routine should not be called, this is only a wrapper")
-end
-
-function get_base(self::OrdinaryGraphVectorSpaceWrapper)
-    return OrdinaryGraphVectorSpace(self.nVertices, self.nLoops, self.evenEdges)
 end
 
 """Check whether the T graded subspace can in principle be non-empty.
    For each such T, a file is expected. Otherwise the corresponding
    graded component is considered not computed yet."""
-function is_valid(self::OrdinaryGraphVectorSpaceWrapper)
-  return is_valid(get_base())
-   #     nEdges = self.nLoops + self.nVertices -1
-        # at least trivalent, and simple
-    #    return  (3*self.nVertices <= 2*nEdges) && self.nVertices > 0 && self.nLoops >= 0 && nEdges <= self.nVertices*(self.nVertices-1)/2
+function is_valid(self::HairyGraphVectorSpaceWrapper)
+        nEdges = self.nLoops + self.nVertices -1
+        # at least trivalent
+        l = (3*self.nVertices <= 2*nEdges + self.nHairs)
+        # all numbers positive
+        l = l && self.nVertices > 0 && self.nLoops >= 0 && self.nHairs >=0
+        # Can have at most a full graph
+        l = l && nEdges <= self.nVertices*(self.nVertices-1)/2
+        return l
 end
 
-
+#function get_base(self::HairyGraphVectorSpaceWrapper)
+#    return HairyGraphVectorSpace(self.nVertices, self.nLoops, self.evenEdges)
+#end
 
 """Produces a set of graphs whose isomorphism classes span the T component of the vector space.
    (Not necessarily freely!)"""
-function get_generating_graphs(self::OrdinaryGraphVectorSpaceWrapper)
+function get_generating_graphs(self::HairyGraphVectorSpaceWrapper)
     error("This routine should not be called, this is only a wrapper")
 end
 
 """For G a graph and p a permutation of the edges, returns the sign induced by the relabelling by p.
    Here vertex j becomes vertex p[j] in the new graph."""
-function get_perm_sign(self::OrdinaryGraphVectorSpaceWrapper, G::SmallGraph, p)
-    return get_perm_sign(get_base(self), G, p)
-end
+#function get_perm_sign(self::HairyGraphVectorSpaceWrapper, G::SmallGraph, p)
+#    return get_perm_sign(get_base(self), G, p)
+#end
 
 """Converts the graph to a graphviz dot format string.
    This method is used only for visualization, not for computation."""
-function get_dot(self::OrdinaryGraphVectorSpaceWrapper, G)
-    return get_dot(get_base(self), G)
-end
+#function get_dot(self::OrdinaryGraphVectorSpaceWrapper, G)
+#    return get_dot(get_base(self), G)
+#end
 
 
 # -----  Contraction operator --------
 
-type ContractDOrdinaryWrapper <: GraphOperator{SmallGraph,SmallGraph}
+type ContractDHairyWrapper <: GraphOperator{SmallGraph,SmallGraph}
   # source
   nVertices :: Int
   nLoops :: Int
+  nHairs :: Int
   evenEdges :: Bool
+  evenHairs :: Bool
 end
 
-"""Retrieve the file name of the file storing the matrix list for the operator."""
-function get_file_name(self::ContractDOrdinaryWrapper)
-  dataDir = self.evenEdges ? ordinaryDataDirWrapperEven : ordinaryDataDirWrapperOdd
-  s = @sprintf "contractD%d_%d.txt" self.nVertices self.nLoops
-  return string(dataDir, s)
-end
-
-function get_unique_file_name(self::ContractDOrdinaryWrapper)
-  prefix = self.evenEdges ? "ordinary_even_" : "ordinary_odd_"
-  s = @sprintf "contractDWrapper%d_%d.sms" self.nVertices self.nLoops
-  return string(prefix, s)
-end
 
 """Returns target graph vector space."""
-function get_target(self::ContractDOrdinaryWrapper)
-  return OrdinaryGraphVectorSpaceWrapper(self.nVertices-1, self.nLoops, self.evenEdges)
+function get_target(self::ContractDHairyWrapper)
+  return HairyGraphVectorSpaceWrapper(self.nVertices-1, self.nLoops, self.nHairs, self.evenEdges, self.evenHairs)
 end
 
 """
 Returns the GraphVectorSpace on which this operator acts
 """
-function get_source(self::ContractDOrdinaryWrapper)
-  return OrdinaryGraphVectorSpaceWrapper(self.nVertices, self.nLoops, self.evenEdges)
+function get_source(self::ContractDHairyWrapper)
+  return HairyGraphVectorSpaceWrapper(self.nVertices, self.nLoops, self.nHairs, self.evenEdges, self.evenHairs)
 end
 
+"""Retrieve the file name of the file storing the matrix list for the operator."""
+function get_file_name(self::ContractDHairyWrapper)
+  dataDir = get_dataDir(get_source(self))
+  s = @sprintf "contractD%d_%d_%d.txt" self.nVertices self.nLoops self.nHairs
+  return joinpath(dataDir, s)
+end
+
+function get_unique_file_name(self::ContractDOrdinaryWrapper)
+  prefix = "hairy_" * (self.evenEdges ? "E":"O") * (self.evenHairs ? "E":"O") * "_"
+  s = @sprintf "contractDWrapper%d_%d.sms" self.nVertices self.nLoops
+  return string(prefix, s)
+end
+
+"""
 function get_file_nameC(self::ContractDOrdinaryWrapper)
   svs = get_source(self)
   degree = get_degree(svs)
@@ -154,7 +164,7 @@ function get_file_nameC(self::ContractDOrdinaryWrapper)
     return joinpath(ordinaryDataDirWrapperOddC, s)
   end 
 end
-
+"""
 
 """For G a graph returns a list of pairs (GG, x),
    such that (operator)(G) = sum x GG.

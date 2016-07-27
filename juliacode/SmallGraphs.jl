@@ -74,6 +74,16 @@ num_edges(g) = length(edges(g))
 #  return div(sum(sum(g)), 2)
 #end
 
+function render_to_dot(G::SmallGraph)
+    ret = "graph {\n"
+    for e = edges(G)
+        u,v = e
+        ret = string(ret, "$u -- $v;\n")
+    end
+    ret = string(ret, "}")
+    return ret
+end
+
 """
 TODO: currently supports only small graphs (<=63 vertices)
 """

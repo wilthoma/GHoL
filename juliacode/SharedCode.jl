@@ -12,6 +12,7 @@ nautypath = "../nauty25r9_hacked/"
 shortg = nautypath + "shortg"
 countg = nautypath + "countg"
 geng = nautypath + "geng"
+genbg = nautypath + "genbg"
 multig = nautypath + "multig"
 labelg = nautypath + "labelg"
 hackhack = "autominfo.txt"  # for now, automorphism information is written to this file
