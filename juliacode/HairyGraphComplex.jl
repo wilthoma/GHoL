@@ -25,7 +25,7 @@ type HairyGraphVectorSpace <: GraphVectorSpace{SmallGraph}
 end
 
 function get_dataDir(self::HairyGraphVectorSpace)
-    return self.evenEdges ? ( self.evenHairs ? hairyDataDirWrapperEE : hairyDataDirWrapperEO) : ( self.evenHairs ? hairyDataDirWrapperOE : hairyDataDirWrapperOO)
+    return self.evenEdges ? ( self.evenHairs ? hairyDataDirEE : hairyDataDirEO) : ( self.evenHairs ? hairyDataDirOE : hairyDataDirOO)
 end
 
 function get_file_name(self::HairyGraphVectorSpace)
@@ -49,14 +49,13 @@ function get_color_counts(self::HairyGraphVectorSpace)
 end
 
 function get_fstring(self::HairyGraphVectorSpace)
-    #    error("This routine should not be called, this is only a wrapper")
     return "a"^(self.nVertices)
 end
 
 """Check whether the T graded subspace can in principle be non-empty.
    For each such T, a file is expected. Otherwise the corresponding
    graded component is considered not computed yet."""
-function is_valid(self::HairyGraphVectorSpaceWrapper)
+function is_valid(self::HairyGraphVectorSpace)
         nEdges = self.nLoops + self.nVertices -1
         # at least trivalent
         l = (3*self.nVertices <= 2*nEdges + self.nHairs)
@@ -69,36 +68,59 @@ function is_valid(self::HairyGraphVectorSpaceWrapper)
         return l
 end
 
+
+function bip_to_ordinary(self::HairyGraphVectorSpace, g)
+    # translates bipartite into ordinary graph (see below)
+    gg = small_graph(self.nVertices+self.nHairs)
+    n2 = self.nLoops + self.nVertices -1 +self.nHairs # number of type II vertices 
+    hind=self.nVertices+1 # index of current hair vertex
+    for v=self.nVertices+1:self.nVertices+n2
+        nh = out_neighbors(v, g)
+        if length(nh) == 1 # hair
+            add_edge!(gg,hind,nh[1])
+            hind = hind+1
+        else # edge
+            add_edge!(gg,nh[1],nh[2])
+        end
+    end
+    return gg
+end
+
 """Produces a set of graphs whose isomorphism classes span the T component of the vector space.
    (Not necessarily freely!)"""
-function get_generating_graphs(self::HairyGraphVectorSpaceWrapper)
-    nEdges = self.nLoops + self.nVertices -1 +self.nHairs
+function get_generating_graphs(self::HairyGraphVectorSpace)
+    # Idea: produce all bipartite graphs, the second color being either of degree 1 or 2
+    # degree 1 pieces are hairs, degree 2 vertices are edges and are removed later
+    # z switch prevents multiple hairs and multiple edges 
+
+    nEdges = self.nLoops + self.nVertices -1
+    nEdgesBiP = self.nHairs+2*nEdges 
     tempFile = get_temp_file_name()
-    run(`$genbg -czl -d3:1 -D$(nEdges):1 $(self.nVertices) $(self.nHairs) $nEdges:$nEdges $tempFile`)
+    run(`$genbg -czl -d3:1 -D$(nEdges+1):2 $(self.nVertices) $(self.nHairs+nEdges) $nEdgesBiP:$nEdgesBiP $tempFile`)
     lll=readAllLines(tempFile)
-    return [parse_graph6(l) for l in lll]
+    return [bip_to_ordinary(self, parse_graph6(l)) for l in lll]
 end
 
 """For G a graph and p a permutation of the edges, returns the sign induced by the relabelling by p.
    Here vertex j becomes vertex p[j] in the new graph."""
-function get_perm_sign(self::HairyGraphVectorSpaceWrapper, G::SmallGraph, p)
+function get_perm_sign(self::HairyGraphVectorSpace, G::SmallGraph, p)
     # the sign is the same as the corresponding sign in the 
     # ordinary graph complex, apart from an extra contribution from the hair-vertices
     ovs = OrdinaryGraphVectorSpace(self.nVertices+self.nHairs, self.nLoops, self.evenEdges)
-    sign = get_perm_sign(ovs, G, p)
+    sgn = get_perm_sign(ovs, G, p)
 
     # compute the extra contribution from hairs if necessary
     if self.evenHairs == self.evenEdges
-        hairp = inducedperm(p, [self.nVertices+1 : self.nVertices+self.nHairs])
-        sign = sign * permSign(hairp)
+        hairp = inducedPerm(p, collect(self.nVertices+1 : self.nVertices+self.nHairs) )
+        sgn = sgn * permSign(hairp)
     end
 
-    return sign
+    return sgn
 end
 
 """Converts the graph to a graphviz dot format string.
    This method is used only for visualization, not for computation."""
-function get_dot(self::OrdinaryGraphVectorSpaceWrapper, G)
+function get_dot(self::HairyGraphVectorSpace, G)
     # no custom rendering necessary
     return render_to_dot(G) 
 end
@@ -145,22 +167,23 @@ end
 """For G a graph returns a list of pairs (GG, x),
    such that (operator)(G) = sum x GG.
 """
-function operate_on(self::ContractDOrdinaryWrapper, G::SmallGraph)
+function operate_on(self::ContractDHairy, G::SmallGraph)
     vs = get_source(self)
+    nAllVert = self.nVertices+self.nHairs # all vertices including the hair-vertices
 
     ret=[]
     for (u,v) = edges(G)
-        # only edges not connecting to a hair vertex can be contracted
+        # only edges not connecting to a hair-vertex can be contracted
         if u>self.nVertices || v>self.nVertices
             continue
         end 
 
-        # permute u,v to position 1 and 2
-        p = collect(1:self.nVertices)
+        # permute vertices u,v to position 1 and 2
+        p = collect(1:nAllVert)
         p[1] = u
         p[2] = v
         idx = 3
-        for j = 1:self.nVertices
+        for j = 1:nAllVert
             if j == u || j== v
                 continue
             else
@@ -176,7 +199,7 @@ function operate_on(self::ContractDOrdinaryWrapper, G::SmallGraph)
         # now delete the first edge
         remove_edge!(GG,1,2) #.... done later
         # ... and join 0 and 1 and fix labelings
-        p = vcat([1],collect(1:self.nVertices-1))
+        p = vcat([1],collect(1:nAllVert-1))
         if !self.evenEdges
           sgn *= get_perm_sign(vs,GG, p)  # TODO: no good to call get_perm_sign with non-permutation if evenEdges
         end
@@ -184,7 +207,7 @@ function operate_on(self::ContractDOrdinaryWrapper, G::SmallGraph)
 
         # finally delete the last vertex
         # remove_vertex(GG, nVert) ... by creating a new graph
-        GGG = small_graph(self.nVertices-1)
+        GGG = small_graph(nAllVert-1)
         for (uu,vv) = edges(GG)
           if uu != vv
             add_edge!(GGG, uu, vv)
@@ -221,6 +244,8 @@ function dispListCoverageHairy(nDisplay=0)
   nLR=collect(2:15)
   nHR=collect(1:15)
   captions=[]
+  xHdrs=[]
+  yHdrs=[]
 
   for evenEdges in [true, false]
    for evenHairs in [true, false]
@@ -235,12 +260,14 @@ function dispListCoverageHairy(nDisplay=0)
       end
     end
     push!(data, curdata)
-    push!(captions, "$h-Hairy"*(evenEdges?"E":"O")*(evenHairs?"E":"O")*" (vertices\\loops)" ) 
+    push!(captions, "$h-Hairy"*(evenEdges?"E":"O")*(evenHairs?"E":"O")*" (vertices\\loops)" )
+    push!(xHdrs, nLR)
+    push!(yHdrs, nVR)
     end
    end
   end
 
-  dispTables(captions, Any[nLR, nLR], Any[nVR,nVR], data, nDisplay=nDisplay)
+  dispTables(captions, xHdrs, yHdrs, data, nDisplay=nDisplay)
 
 end
 
@@ -256,6 +283,8 @@ function dispOperatorCoverageHairy(nDisplay=0)
   nLR=collect(2:15)
   nHR=collect(1:15)
   captions=[]
+    xHdrs=[]
+  yHdrs=[]
 
   for evenEdges in [true, false]
    for evenHairs in [true, false]
@@ -279,12 +308,14 @@ function dispOperatorCoverageHairy(nDisplay=0)
       end
     end
     push!(data, curdata)
-    push!(captions, "ContractD $h-Hairy"*(evenEdges?"E":"O")*(evenHairs?"E":"O")*" (vertices\\loops)" ) 
+    push!(captions, "ContractD $h-Hairy"*(evenEdges?"E":"O")*(evenHairs?"E":"O")*" (vertices\\loops)" )
+        push!(xHdrs, nLR)
+    push!(yHdrs, nVR) 
     end
    end
    end
 
-    dispTables(captions, Any[nLR, nLR], Any[nVR,nVR], data, nDisplay=nDisplay)
+    dispTables(captions, xHdrs, yHdrs, data, nDisplay=nDisplay)
 
 end
 
@@ -294,6 +325,8 @@ function dispCohomologyHairy(nDisplay=0)
   nLR=collect(2:15)
   nHR=collect(1:15)
   captions=[]
+    xHdrs=[]
+  yHdrs=[]
 
   for evenEdges in [true, false]
    for evenHairs in [true, false]
@@ -312,11 +345,13 @@ function dispCohomologyHairy(nDisplay=0)
         end
         push!(data, curdata)
         push!(captions, "Cohomology $h-Hairy"*(evenEdges?"E":"O")*(evenHairs?"E":"O")*" (vertices\\loops)" )
+        push!(xHdrs, nLR)
+        push!(yHdrs, nVR)
      end 
     end
    end
   
-    dispTables(captions, Any[nLR, nLR], Any[nVR,nVR], data, nDisplay=nDisplay)
+    dispTables(captions, xHdrs, yHdrs, data, nDisplay=nDisplay)
 
 
 end

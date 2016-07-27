@@ -141,9 +141,9 @@ function dispListFile(self::GraphVectorSpace; nDisplay=0)
                 for (idx,G) in enumerate(ggg)
                     #nx.write_graphml(G, dummyfile)
                     #call(["graphml2gv", "-o "+dummyfilegv, dummyfile])
-                    write(f,"<div><img src=$imgDir$idx.svg>" )
+                    write(f,"<div><img src='$imgDir$idx.svg'>" )
                     write(f,"<p>$(idx).</p></div>\n")
-                    if !isfile("$imgDir$idx")
+                    if !isfile("$imgDir$idx.svg")
                       needSvgCreation = true
                     end
                 end

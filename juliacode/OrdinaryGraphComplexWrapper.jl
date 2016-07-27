@@ -373,7 +373,7 @@ function dispOperatorCoverageOrdinaryWrapper(nDisplay=0)
         
         deco = is_valid_op(theop) ? "" : "class=redcell"
 
-        curdata[i,j] = Dict("data"=>"$rnk", "style"=>deco)
+        curdata[i,j] = Dict("data"=>"$fsize ($rnk)", "style"=>deco)
       end
     end
     push!(data, curdata)

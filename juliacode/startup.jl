@@ -28,6 +28,8 @@ include("OrdinaryGraphComplex.jl");
 
 include("OrdinaryGraphComplexWrapper.jl");
 
+include("HairyGraphComplex.jl")
+
 include("EdgeMarkedGraphComplex.jl");
 
 include("RibbonGraphComplex.jl")
