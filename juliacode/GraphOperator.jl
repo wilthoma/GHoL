@@ -406,10 +406,14 @@ function squareZeroTestGeneric(oplst)
           D=[]
           DD=[]
           try
+            #println(op1)
             D=load_matrix(op1)
+            #println("dne1")
+            #println(op2)
             DD=load_matrix(op2)
+            #println("dne")
           catch
-            #println("cannot load")
+            #println("cannot load ...")
             push!(inc, p)
             continue
           end
@@ -605,11 +609,16 @@ function computeRank{S, T}(self::GraphOperator{S,T})
     end
 
     RankFile = get_rank_file(self)
-    A = load_matrix(self)
-    r=0
-    if A != []
-      r = rank(full(A))
-    end
+    r = 0
+    try
+      A = load_matrix(self)
+      if A != []
+        r = rank(full(A))
+      end
+    catch
+      # if file cannot be loaded -> indicate failure
+      return -1
+    end    
 
     outfile = open(RankFile, "w")
     write(outfile, "$r")

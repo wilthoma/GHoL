@@ -313,7 +313,7 @@ function createOperatorFile(self::ContractDHairyWrapper;importOnly=false, skipEx
              #end
              if filesize(outFileC)>0
                A = readdlm(outFileC)
-               B = A[A[:,1].==self.nHairs,2:3]
+               B = A[A[:,1].==self.nHairs,2:4]
                writedlm(outFile, B)
              else
                # write an empty file 
