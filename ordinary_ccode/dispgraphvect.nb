@@ -1,0 +1,269 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[      8988,        260]
+NotebookOptionsPosition[      8504,        240]
+NotebookOutlinePosition[      8842,        255]
+CellTagsIndexPosition[      8799,        252]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"L", "=", 
+   RowBox[{"ReadList", "[", 
+    RowBox[{"\"\<testen.g6\>\"", ",", " ", "String"}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.483109941917777*^9, 3.4831099551271048`*^9}, {
+   3.483110258507462*^9, 3.483110258712932*^9}, 3.4831104589738283`*^9, {
+   3.483110651726902*^9, 3.48311065308101*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LL", "=", 
+  RowBox[{"Map", "[", " ", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Function", "[", 
+     RowBox[{"x", ",", "\[IndentingNewLine]", 
+      RowBox[{"ImportString", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"StringSplit", "[", "x", "]"}], "[", 
+         RowBox[{"[", "3", "]"}], "]"}], ",", "\"\<Graph6\>\""}], "]"}]}], 
+     "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", ",", 
+    RowBox[{"ReadList", "[", 
+     RowBox[{"\"\<testen.g6\>\"", ",", " ", "String"}], "]"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.48310995910635*^9, 3.483110006406547*^9}, {
+   3.483110045766745*^9, 3.48311007898812*^9}, 3.483110167643105*^9, {
+   3.4831102009933147`*^9, 3.483110251147559*^9}, {3.4831103368287582`*^9, 
+   3.483110391901243*^9}, 3.483110734030848*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{2.9290768333454897`, 1.4593263472229232`}, {0., 
+      1.4597399346301954`}, {1.8965117773220432`, 0.}, {1.0308339745600468`, 
+      0.00083495141608525}, {2.030355656770334, 0.9478353664954957}, {
+      0.8992865590917068, 0.9487266691009869}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 5}, {2, 6}, {3, 4}, {3, 5}, {4, 6}, {5, 6}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{2.9290768333454897`, 1.4593263472229232`}, {
+       0., 1.4597399346301954`}, {1.8965117773220432`, 0.}, {
+       1.0308339745600468`, 0.00083495141608525}, {2.030355656770334, 
+       0.9478353664954957}, {0.8992865590917068, 0.9487266691009869}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{0., 0.6729737828926806}, {1.8307466705222089`, 
+      1.3453050076850994`}, {1.8305441876441686`, 0.}, {2.783778655374168, 
+      1.1318762547010768`}, {2.783783423294091, 0.21396821104740987`}, {
+      1.0288773855446913`, 0.6728937260077874}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 6}, {2, 4}, {2, 6}, {3, 5}, {3, 6}, {4, 5}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{0., 0.6729737828926806}, {
+       1.8307466705222089`, 1.3453050076850994`}, {1.8305441876441686`, 0.}, {
+       2.783778655374168, 1.1318762547010768`}, {2.783783423294091, 
+       0.21396821104740987`}, {1.0288773855446913`, 0.6728937260077874}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.483109960231648*^9, {3.483109991213377*^9, 3.483110007055779*^9}, {
+   3.483110052480142*^9, 3.483110079563284*^9}, {3.483110253198925*^9, 
+   3.483110261387747*^9}, 3.48311036282694*^9, 3.483110394418948*^9, 
+   3.4831104613053703`*^9, 3.483110658380797*^9, 3.48311073750631*^9, 
+   3.483110822084948*^9, 3.4831130539134703`*^9, 3.4831154490929947`*^9}]
+}, Open  ]],
+
+Cell[BoxData["\[IndentingNewLine]"], "Input",
+ CellChangeTimes->{3.484031569327849*^9}],
+
+Cell[BoxData[
+ RowBox[{"ImportString", "[", 
+  RowBox[{"\"\<LgCP??H@?CoN~p\>\"", ",", "\"\<Graph6\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.4840315761842823`*^9, 3.4840315863742857`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  TagBox[GraphicsComplexBox[{{1.8644156062199628`, 0.29383307719939755`}, {
+    2.512142606626846, 0.04256318536053971}, {2.7803759094806946`, 
+    0.7367571520184446}, {0.7443892622156013, 0.5936039011710976}, {
+    0.5279102924955834, 0.}, {0.7992218122035061, 1.693975555485621}, {
+    2.529071644017341, 1.5293471225379964`}, {0.4237461009528465, 
+    1.1624328356952045`}, {0., 0.7164965708820972}, {1.1412377979119825`, 
+    2.4751495732575837`}, {1.9317233349530167`, 2.2833002276526333`}, {
+    1.7558376852535922`, 1.379527027961204}, {1.5578204139508114`, 
+    0.7916099679369883}}, {
+     {RGBColor[0.5, 0., 0.], 
+      LineBox[{{1, 2}, {1, 12}, {1, 13}, {2, 3}, {2, 13}, {3, 7}, {3, 13}, {4,
+        5}, {4, 6}, {4, 13}, {5, 9}, {5, 13}, {6, 10}, {6, 13}, {7, 11}, {7, 
+       13}, {8, 9}, {8, 12}, {8, 13}, {9, 12}, {10, 11}, {10, 12}, {11, 12}, {
+       12, 13}}]}, 
+     {RGBColor[0, 0, 0.7], 
+      TagBox[
+       TooltipBox[PointBox[1],
+        "1"],
+       Annotation[#, 1, "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[PointBox[2],
+        "2"],
+       Annotation[#, 2, "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[PointBox[3],
+        "3"],
+       Annotation[#, 3, "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[PointBox[4],
+        "4"],
+       Annotation[#, 4, "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[PointBox[5],
+        "5"],
+       Annotation[#, 5, "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[PointBox[6],
+        "6"],
+       Annotation[#, 6, "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[PointBox[7],
+        "7"],
+       Annotation[#, 7, "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[PointBox[8],
+        "8"],
+       Annotation[#, 8, "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[PointBox[9],
+        "9"],
+       Annotation[#, 9, "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[PointBox[10],
+        "10"],
+       Annotation[#, 10, "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[PointBox[11],
+        "11"],
+       Annotation[#, 11, "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[PointBox[12],
+        "12"],
+       Annotation[#, 12, "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[PointBox[13],
+        "13"],
+       Annotation[#, 13, "Tooltip"]& ]}}],
+   Annotation[#, 
+    VertexCoordinateRules -> {{1.8644156062199628`, 0.29383307719939755`}, {
+     2.512142606626846, 0.04256318536053971}, {2.7803759094806946`, 
+     0.7367571520184446}, {0.7443892622156013, 0.5936039011710976}, {
+     0.5279102924955834, 0.}, {0.7992218122035061, 1.693975555485621}, {
+     2.529071644017341, 1.5293471225379964`}, {0.4237461009528465, 
+     1.1624328356952045`}, {0., 0.7164965708820972}, {1.1412377979119825`, 
+     2.4751495732575837`}, {1.9317233349530167`, 2.2833002276526333`}, {
+     1.1895006702653577`, 1.3795270279612026`}, {1.5578204139508114`, 
+     0.7916099679369883}}]& ],
+  AspectRatio->Automatic,
+  FrameTicks->None,
+  PlotRange->All,
+  PlotRangePadding->Scaled[0.1]]], "Input",
+ CellChangeTimes->{{3.4840315928940268`*^9, 3.484031595902594*^9}}]
+},
+WindowSize->{886, 750},
+WindowMargins->{{Automatic, 150}, {49, Automatic}},
+FrontEndVersion->"7.0 for Linux x86 (64-bit) (February 25, 2009)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 348, 8, 32, "Input"],
+Cell[CellGroupData[{
+Cell[918, 32, 818, 18, 121, "Input"],
+Cell[1739, 52, 3422, 92, 107, "Output"]
+}, Open  ]],
+Cell[5176, 147, 87, 1, 55, "Input"],
+Cell[5266, 150, 192, 3, 32, "Input"],
+Cell[5461, 155, 3039, 83, 336, InheritFromParent]
+}
+]
+*)
+
+(* End of internal cache information *)

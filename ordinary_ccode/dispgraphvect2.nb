@@ -1,0 +1,1769 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     64578,       1760]
+NotebookOptionsPosition[     64130,       1741]
+NotebookOutlinePosition[     64468,       1756]
+CellTagsIndexPosition[     64425,       1753]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"L", "=", 
+   RowBox[{"ReadList", "[", 
+    RowBox[{"\"\<gra8_0.g6\>\"", ",", " ", "String"}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.483109941917777*^9, 3.4831099551271048`*^9}, {
+   3.483110258507462*^9, 3.483110258712932*^9}, 3.4831104589738283`*^9, {
+   3.483110651726902*^9, 3.48311065308101*^9}, {3.483776914215057*^9, 
+   3.483776915702716*^9}, {3.4837843393398237`*^9, 3.483784342184668*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"R", "=", 
+  RowBox[{"ReadList", "[", "\"\<test55.txt\>\"", "]"}]}]], "Input",
+ CellChangeTimes->{{3.483776936800995*^9, 3.48377696627217*^9}, 
+   3.4837770442279367`*^9, {3.48377991925769*^9, 3.483779921324535*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "285", ",", "470", ",", "930", ",", "928", ",", "598", ",", "1170", ",", 
+   "736", ",", "740", ",", "931", ",", "932", ",", "940", ",", "741", ",", 
+   "739", ",", "604", ",", "929", ",", "854", ",", "472", ",", "51", ",", 
+   "476", ",", "1168", ",", "179", ",", "474", ",", "737", ",", "477", ",", 
+   "288", ",", "943", ",", "292", ",", "471", ",", "289", ",", "941", ",", 
+   "938", ",", "946", ",", "1169", ",", "475", ",", "473", ",", "1364", ",", 
+   "738", ",", "1136", ",", "553", ",", "934", ",", "945", ",", "602", ",", 
+   "599", ",", "708", ",", "935", ",", "936", ",", "1713", ",", "1714", ",", 
+   "1716", ",", "1715", ",", "1717"}], "}"}]], "Output",
+ CellChangeTimes->{3.483777044964324*^9, 3.483779922389187*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"LLxxx", "=", 
+  RowBox[{"Map", "[", " ", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Function", "[", 
+     RowBox[{"x", ",", "\[IndentingNewLine]", 
+      RowBox[{"ImportString", "[", 
+       RowBox[{
+        RowBox[{"L", "[", 
+         RowBox[{"[", "x", "]"}], "]"}], ",", "\"\<Graph6\>\""}], "]"}]}], 
+     "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", ",", 
+    RowBox[{"ReadList", "[", "\"\<test55.txt\>\"", "]"}]}], "]"}]}]], "Input",\
+
+ CellChangeTimes->{{3.48310995910635*^9, 3.483110006406547*^9}, {
+   3.483110045766745*^9, 3.48311007898812*^9}, 3.483110167643105*^9, {
+   3.4831102009933147`*^9, 3.483110251147559*^9}, {3.4831103368287582`*^9, 
+   3.483110391901243*^9}, 3.483110734030848*^9, {3.4837769767063103`*^9, 
+   3.483777054332048*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{1.5739927521723729`, 0.}, {1.2889485832659475`, 
+      1.6007542468859761`}, {0., 0.9531868235718978}, {2.251617576351749, 
+      0.7510672928270885}, {1.9346235027099117`, 1.8193476784959566`}, {
+      0.6669114538392762, 1.5334282515040258`}, {0.514563098366551, 
+      0.33920347088387004`}, {1.2165433914510633`, 0.8117601540873332}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 4}, {1, 7}, {1, 8}, {2, 5}, {2, 7}, {2, 8}, {3, 6}, {3, 
+         7}, {3, 8}, {4, 5}, {4, 8}, {5, 6}, {6, 7}, {6, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1.5739927521723729`, 0.}, {
+       1.2889485832659475`, 1.6007542468859761`}, {0., 0.9531868235718978}, {
+       2.251617576351749, 0.7510672928270885}, {1.9346235027099117`, 
+       1.8193476784959566`}, {0.6669114538392762, 1.5334282515040258`}, {
+       0.6403517897828499, 0.6222280265705433}, {1.2165433914510633`, 
+       0.8117601540873332}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{0.3409340436346888, 0.06433665632111296}, {
+      1.8692042747432782`, 0.882755197617335}, {1.1089255127543052`, 
+      0.18996303622055405`}, {0., 1.0968640711122046`}, {2.4346799523841636`, 
+      0.884877887061082}, {1.1799259967693658`, 1.2885893388810292`}, {
+      1.7423276328954231`, 0.}, {0.705323856437759, 0.8325510502529883}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 4}, {1, 7}, {1, 8}, {2, 5}, {2, 7}, {2, 8}, {3, 6}, {3, 
+         7}, {3, 8}, {4, 6}, {4, 8}, {5, 6}, {5, 7}, {6, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{0.3409340436346888, 0.06433665632111296}, {
+       1.8692042747432782`, 0.882755197617335}, {1.1089255127543052`, 
+       0.18996303622055405`}, {0., 1.0968640711122046`}, {2.4346799523841636`,
+        0.884877887061082}, {1.1799259967693658`, 1.2885893388810292`}, {
+       1.7423276328954231`, 0.}, {0.705323856437759, 0.8325510502529883}}]& ],
+    
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{0.9903346007703476, 0.}, {0., 0.7637821476461937}, {
+      1.9781597377545623`, 0.7649672189005532}, {0.9884533595162931, 
+      0.7075840991664373}, {0.033943049657440216`, 1.7768689023283908`}, {
+      1.9425617295151876`, 1.7791789265158395`}, {0.7077565277588245, 
+      1.5548955224520287`}, {1.2680796540665062`, 1.5545162826522376`}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 3}, {1, 4}, {2, 5}, {2, 7}, {3, 6}, {3, 8}, {4, 
+         7}, {4, 8}, {5, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{0.9903346007703476, 0.}, {0., 
+       0.7637821476461937}, {1.9781597377545623`, 0.7649672189005532}, {
+       0.9884533595162931, 0.7075840991664373}, {0.033943049657440216`, 
+       1.7768689023283908`}, {1.9425617295151876`, 1.7791789265158395`}, {
+       0.7077565277588245, 1.5548955224520287`}, {1.2680796540665062`, 
+       1.5545162826522376`}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{1.0438385811748905`, 2.0317226510030553`}, {
+      0.2074977084425732, 1.6304587824310035`}, {1.877855003001332, 
+      1.6264495205636473`}, {0.576853588625812, 0.0012579827073105898`}, {
+      1.5040107947153625`, 0.}, {0., 0.7269298254996244}, {2.082277674566824, 
+      0.7231615500947004}, {1.0418364768129398`, 0.9638309045121914}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 3}, {1, 8}, {2, 6}, {2, 8}, {3, 7}, {3, 8}, {4, 
+         5}, {4, 6}, {4, 8}, {5, 7}, {5, 8}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1.0438385811748905`, 2.0317226510030553`}, {
+       0.2074977084425732, 1.6304587824310035`}, {1.877855003001332, 
+       1.6264495205636473`}, {0.576853588625812, 0.0012579827073105898`}, {
+       1.5040107947153625`, 0.}, {0., 0.7269298254996244}, {2.082277674566824,
+        0.7231615500947004}, {1.0418364768129398`, 0.9638309045121914}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{2.268864358519941, 1.2921483656754806`}, {
+      1.3008765128604238`, 0.}, {0.6413694176274225, 1.8682291799341588`}, {
+      0., 1.150659342615835}, {0.3246617514351561, 0.24189296690348971`}, {
+      2.229762971545147, 0.5485882228692819}, {1.6598472483312832`, 
+      1.5674343682583256`}, {1.0214882461590669`, 0.9932818112011583}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 6}, {1, 7}, {1, 8}, {2, 5}, {2, 6}, {2, 8}, {3, 4}, {3, 
+         7}, {3, 8}, {4, 5}, {4, 8}, {5, 8}, {6, 7}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{2.268864358519941, 1.2921483656754806`}, {
+       1.3008765128604238`, 0.}, {0.6413694176274225, 1.8682291799341588`}, {
+       0., 1.150659342615835}, {0.3246617514351561, 0.24189296690348971`}, {
+       2.229762971545147, 0.5485882228692819}, {1.6598472483312832`, 
+       1.5674343682583256`}, {1.0214882461590669`, 0.9932818112011583}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{1.732441787793634, 0.}, {0., 0.455411033897067}, {
+      1.791359072245593, 1.6098402240183716`}, {0.023479090661452817`, 
+      1.2984293516909806`}, {2.2369481335765786`, 0.7993032015920731}, {
+      0.7293354044853484, 0.0832711995603832}, {0.8058430099236823, 
+      1.3658094425009488`}, {1.1414593683423928`, 0.8552932565447902}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 5}, {1, 6}, {1, 8}, {2, 4}, {2, 6}, {2, 8}, {3, 5}, {3, 
+         7}, {3, 8}, {4, 7}, {4, 8}, {5, 8}, {6, 7}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1.732441787793634, 0.}, {0., 
+       0.455411033897067}, {1.791359072245593, 1.6098402240183716`}, {
+       0.023479090661452817`, 1.2984293516909806`}, {2.2369481335765786`, 
+       0.7993032015920731}, {0.7293354044853484, 0.0832711995603832}, {
+       0.8058430099236823, 1.3658094425009488`}, {1.1414593683423928`, 
+       0.8552932565447902}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{0.7746727796004873, 1.478616760209966}, {
+      1.6948969054912264`, 1.478917097663937}, {0., 0.8190808811846022}, {
+      2.4699239585828097`, 0.8200289461491903}, {0.38673830824973165`, 
+      0.0001214331362057175}, {2.0844501163585543`, 0.}, {0.9854376329010417, 
+      0.5071622814953337}, {1.4848783863826027`, 0.5072920949227364}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 3}, {1, 8}, {2, 4}, {2, 7}, {3, 5}, {3, 7}, {4, 
+         6}, {4, 8}, {5, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{0.7746727796004873, 1.478616760209966}, {
+       1.6948969054912264`, 1.478917097663937}, {0., 0.8190808811846022}, {
+       2.4699239585828097`, 0.8200289461491903}, {0.38673830824973165`, 
+       0.0001214331362057175}, {2.0844501163585543`, 0.}, {0.9854376329010417,
+        0.5071622814953337}, {1.4848783863826027`, 0.5072920949227364}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{0., 0.33644103990628527`}, {1.5972672150837928`, 
+      0.}, {2.2553740156131106`, 0.6792962345437747}, {1.8460609478531702`, 
+      1.569968025005334}, {0.7983204604099522, 1.7713004000091142`}, {
+      0.15707280057389916`, 1.1796798319138142`}, {0.6001930095161236, 
+      0.6212379974791299}, {1.2148604422708715`, 0.7457518947451314}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 6}, {1, 7}, {1, 8}, {2, 3}, {2, 7}, {2, 8}, {3, 4}, {3, 
+         8}, {4, 5}, {4, 8}, {5, 6}, {5, 7}, {6, 7}, {6, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{0., 0.33644103990628527`}, {
+       1.5972672150837928`, 0.}, {2.2553740156131106`, 0.6792962345437747}, {
+       1.8460609478531702`, 1.569968025005334}, {0.7983204604099522, 
+       1.7713004000091142`}, {0.15707280057389916`, 1.1796798319138142`}, {
+       0.6001930095161236, 0.6212379974791299}, {1.2148604422708715`, 
+       0.7457518947451314}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{1.8802533981672203`, 1.5332673316522856`}, {
+      0.7217291304222971, 1.5328989988933095`}, {2.601208416522503, 
+      0.8085106505773871}, {0., 0.8089631381454568}, {2.1027354825555764`, 
+      0.}, {0.498493975276054, 0.0003513288493801614}, {1.6623011576687294`, 
+      0.5363021430435142}, {0.9389799444689464, 0.5361482569722484}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 3}, {1, 7}, {2, 4}, {2, 8}, {3, 5}, {3, 7}, {4, 
+         6}, {4, 8}, {5, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1.8802533981672203`, 1.5332673316522856`}, {
+       0.7217291304222971, 1.5328989988933095`}, {2.601208416522503, 
+       0.8085106505773871}, {0., 0.8089631381454568}, {2.1027354825555764`, 
+       0.}, {0.498493975276054, 0.0003513288493801614}, {1.6623011576687294`, 
+       0.5363021430435142}, {0.9389799444689464, 0.5361482569722484}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{1.7154322072951524`, 0.15850410194703746`}, {
+      0.0660352905568965, 0.}, {1.3012343656540521`, 1.767860156699474}, {
+      0.29975486289281883`, 1.766889809227933}, {1.9109711399359517`, 
+      0.8738954774425872}, {0., 0.7665864836186753}, {0.9517968285215987, 
+      0.10278817664552209`}, {0.7423976775161266, 0.9248968742374883}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 5}, {1, 7}, {1, 8}, {2, 6}, {2, 7}, {2, 8}, {3, 4}, {3, 
+         5}, {3, 8}, {4, 6}, {4, 8}, {5, 7}, {6, 7}, {6, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1.7154322072951524`, 0.15850410194703746`}, {
+       0.0660352905568965, 0.}, {1.3012343656540521`, 1.767860156699474}, {
+       0.29975486289281883`, 1.766889809227933}, {1.9109711399359517`, 
+       0.8738954774425872}, {0., 0.7665864836186753}, {0.9517968285215987, 
+       0.10278817664552209`}, {0.7423976775161266, 0.9248968742374883}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{2.09309763711018, 1.0499120007722778`}, {
+      1.1389364985620765`, 0.}, {0., 1.176566285259439}, {
+      0.14792192854704878`, 0.29183694935059235`}, {0.6138522594308489, 
+      2.0136208841726693`}, {1.5270496347310978`, 1.282158313337394}, {
+      0.8603465266377186, 1.2154321417284384`}, {1.178397011806842, 
+      0.6945354893810824}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 6}, {1, 7}, {1, 8}, {2, 4}, {2, 6}, {2, 8}, {3, 4}, {3, 
+         5}, {3, 8}, {4, 7}, {5, 6}, {5, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{2.09309763711018, 1.0499120007722778`}, {
+       1.1389364985620765`, 0.}, {0., 1.176566285259439}, {
+       0.14792192854704878`, 0.29183694935059235`}, {0.6138522594308489, 
+       2.0136208841726693`}, {1.5270496347310978`, 1.282158313337394}, {
+       0.8603465266377186, 1.2154321417284384`}, {1.178397011806842, 
+       0.6945354893810824}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{1.9570686872385883`, 1.1528864855426013`}, {
+      1.5168614752805543`, 1.8282868159703836`}, {0., 0.8461531921304986}, {
+      0.7809022502748563, 0.}, {1.8566703940164067`, 0.4922027801200932}, {
+      0.3695296611500385, 1.7304816967588175`}, {0.9624771924632309, 
+      0.8383493803512259}, {0.9169331180489739, 1.4910204308070767`}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 5}, {1, 7}, {1, 8}, {2, 5}, {2, 6}, {2, 8}, {3, 4}, {3, 
+         6}, {3, 8}, {4, 5}, {4, 7}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1.9570686872385883`, 1.1528864855426013`}, {
+       1.5168614752805543`, 1.8282868159703836`}, {0., 0.8461531921304986}, {
+       0.7809022502748563, 0.}, {1.8566703940164067`, 0.4922027801200932}, {
+       0.3695296611500385, 1.7304816967588175`}, {0.9624771924632309, 
+       0.8383493803512259}, {0.9169331180489739, 1.4910204308070767`}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{2.2585996235208246`, 0.256199401828909}, {0., 
+      0.25944379725967137`}, {1.131996333327287, 1.6535596479298662`}, {
+      1.8556521687981493`, 0.9849292787721045}, {0.4056934193772046, 
+      0.9865019218122325}, {1.4143224473502178`, 0.}, {0.8422351986360677, 
+      0.0011775088733705363`}, {1.129221481679834, 0.6150085217236269}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 4}, {1, 6}, {1, 8}, {2, 5}, {2, 7}, {2, 8}, {3, 4}, {3, 
+         5}, {3, 8}, {4, 7}, {5, 6}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{2.2585996235208246`, 0.256199401828909}, {0.,
+        0.25944379725967137`}, {1.131996333327287, 1.6535596479298662`}, {
+       1.8556521687981493`, 0.9849292787721045}, {0.4056934193772046, 
+       0.9865019218122325}, {1.4143224473502178`, 0.}, {0.8422351986360677, 
+       0.0011775088733705363`}, {1.129221481679834, 0.6150085217236269}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{1.9744773134310813`, 0.8095921029222581}, {
+      0.4424373497310192, 1.6172792206182725`}, {0.44428588279939996`, 0.}, {
+      0.0006268324755824839, 0.5259452320141234}, {0., 1.0883427260989158`}, {
+      1.1753083836826352`, 1.5728797195670525`}, {1.1780243422758696`, 
+      0.04476439202493876}, {1.1558541186652573`, 0.8089291411154808}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 6}, {1, 7}, {1, 8}, {2, 4}, {2, 6}, {2, 8}, {3, 5}, {3, 
+         7}, {3, 8}, {4, 5}, {4, 7}, {5, 6}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1.9744773134310813`, 0.8095921029222581}, {
+       0.4424373497310192, 1.6172792206182725`}, {0.44428588279939996`, 0.}, {
+       0.0006268324755824839, 0.5259452320141234}, {0., 
+       1.0883427260989158`}, {1.1753083836826352`, 1.5728797195670525`}, {
+       1.1780243422758696`, 0.04476439202493876}, {1.1558541186652573`, 
+       0.8089291411154808}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{0., 0.6947289919372286}, {0.5550162447112388, 
+      0.015538768093704691`}, {1.3983864367842442`, 1.7776496067902783`}, {
+      2.131084719985113, 0.19318979366464012`}, {1.625352205184503, 
+      0.9285116742683056}, {1.137807556055797, 0.6950524697061172}, {
+      0.7500474222088919, 1.1954072317720892`}, {1.2789433862805542`, 0.}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 6}, {1, 7}, {2, 5}, {2, 8}, {3, 5}, {3, 6}, {3, 
+         7}, {4, 5}, {4, 6}, {4, 8}, {5, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{0., 0.6947289919372286}, {0.5550162447112388,
+        0.015538768093704691`}, {1.3983864367842442`, 1.7776496067902783`}, {
+       2.131084719985113, 0.19318979366464012`}, {1.625352205184503, 
+       0.9285116742683056}, {1.137807556055797, 0.6950524697061172}, {
+       0.7500474222088919, 1.1954072317720892`}, {1.2789433862805542`, 
+       0.}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{0.5948134874208655, 1.6186559748757234`}, {0., 
+      0.5632641600748024}, {2.1256024202871426`, 0.5125095286937482}, {
+      0.5627742345201215, 0.9620376196817352}, {1.537135832605222, 
+      1.2316071965684472`}, {1.1571512842947593`, 0.7558296964246284}, {
+      1.2199842732928807`, 0.11629027060032238`}, {0.4456541219629121, 
+      0.}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 5}, {1, 6}, {2, 7}, {2, 8}, {3, 5}, {3, 6}, {3, 
+         7}, {4, 5}, {4, 6}, {4, 8}, {5, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{0.5948134874208655, 1.6186559748757234`}, {
+       0., 0.5632641600748024}, {2.1256024202871426`, 0.5125095286937482}, {
+       0.5627742345201215, 0.9620376196817352}, {1.537135832605222, 
+       1.2316071965684472`}, {1.1571512842947593`, 0.7558296964246284}, {
+       1.2199842732928807`, 0.11629027060032238`}, {0.4456541219629121, 
+       0.}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{2.195437621773466, 1.1030283567410284`}, {
+      1.492135465556032, 1.68685139048246}, {2.047666079504375, 0.}, {0., 
+      0.5213758560752415}, {0.858321801881528, 0.11815725778969688`}, {
+      1.0032540146828341`, 1.020234517728064}, {0.4040915834525908, 
+      1.2115113019333181`}, {1.6010306677665427`, 0.6027810157413518}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 3}, {1, 6}, {2, 7}, {2, 8}, {3, 5}, {3, 8}, {4, 
+         5}, {4, 6}, {4, 7}, {5, 7}, {5, 8}, {6, 7}, {6, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{2.195437621773466, 1.1030283567410284`}, {
+       1.492135465556032, 1.68685139048246}, {2.047666079504375, 0.}, {0., 
+       0.5213758560752415}, {0.858321801881528, 0.11815725778969688`}, {
+       1.0032540146828341`, 1.020234517728064}, {0.4040915834525908, 
+       1.2115113019333181`}, {1.6010306677665427`, 0.6027810157413518}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{1.7549502046332144`, 1.4487207055372568`}, {
+      1.7554244141018942`, 0.2501006731435037}, {0., 1.177535394991378}, {
+      0.0033708845303419555`, 0.5188679950266029}, {0.5201124847517473, 
+      1.697267461462936}, {0.5188880470308713, 0.}, {1.0120555477535385`, 
+      1.3596484516873206`}, {1.0129676238037075`, 0.33060748219263847`}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 5}, {1, 7}, {2, 6}, {2, 8}, {3, 5}, {3, 6}, {3, 
+         7}, {4, 5}, {4, 6}, {4, 8}, {5, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1.7549502046332144`, 1.4487207055372568`}, {
+       1.7554244141018942`, 0.2501006731435037}, {0., 1.177535394991378}, {
+       0.0033708845303419555`, 0.5188679950266029}, {0.5201124847517473, 
+       1.697267461462936}, {0.5188880470308713, 0.}, {1.0120555477535385`, 
+       1.3596484516873206`}, {1.0129676238037075`, 0.33060748219263847`}}]& ],
+    
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{2.5674188188195717`, 0.7517779422107004}, {
+      1.985547316953086, 1.6767551112166434`}, {1.7106758233273647`, 0.}, {0.,
+       0.8969799833955909}, {0.9559019911209727, 0.7974424729780418}, {
+      0.7745722546148602, 0.34001453508920576`}, {0.7553733916414676, 
+      1.463683522647552}, {1.7652356487755507`, 0.8848313546721418}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 3}, {1, 8}, {2, 7}, {2, 8}, {3, 5}, {3, 6}, {4, 
+         5}, {4, 6}, {4, 7}, {5, 7}, {5, 8}, {6, 7}, {6, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{2.5674188188195717`, 0.7517779422107004}, {
+       1.985547316953086, 1.6767551112166434`}, {1.7106758233273647`, 0.}, {
+       0., 0.8969799833955909}, {0.9559019911209727, 0.7974424729780418}, {
+       0.7745722546148602, 0.34001453508920576`}, {0.7553733916414676, 
+       1.463683522647552}, {1.7652356487755507`, 0.8848313546721418}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{0., 1.1147211792073124`}, {0.2451815089963446, 
+      0.1096451409196233}, {0.9158599102452136, 1.704152594856148}, {
+      2.1202913584477936`, 1.4854300549166592`}, {2.4982222495392343`, 
+      0.45581867892043015`}, {1.3935387987793533`, 0.}, {1.840943221776415, 
+      0.6726575635775304}, {0.8042509520048067, 0.7377932225557295}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 3}, {1, 8}, {2, 6}, {2, 8}, {3, 4}, {3, 8}, {4, 
+         5}, {4, 7}, {5, 6}, {5, 7}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{0., 1.1147211792073124`}, {
+       0.2451815089963446, 0.1096451409196233}, {0.9158599102452136, 
+       1.704152594856148}, {2.1202913584477936`, 1.4854300549166592`}, {
+       2.4982222495392343`, 0.45581867892043015`}, {1.3935387987793533`, 
+       0.}, {1.840943221776415, 0.6726575635775304}, {0.8042509520048067, 
+       0.7377932225557295}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{2.5702630942595666`, 0.1670743564132416}, {
+      2.378882884775514, 1.1522777265130557`}, {0.19219919002262875`, 0.}, {
+      0., 0.9841352514693079}, {1.890759986597603, 0.5112514639062673}, {
+      1.401070565074575, 0.007261629300405081}, {1.171494655270841, 
+      1.1453611579702137`}, {0.6814800333164113, 0.6421787502973482}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 5}, {1, 6}, {2, 5}, {2, 7}, {3, 4}, {3, 6}, {3, 
+         8}, {4, 7}, {4, 8}, {5, 6}, {5, 8}, {6, 7}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{2.5702630942595666`, 0.1670743564132416}, {
+       2.378882884775514, 1.1522777265130557`}, {0.19219919002262875`, 0.}, {
+       0., 0.9841352514693079}, {1.890759986597603, 0.5112514639062673}, {
+       1.401070565074575, 0.007261629300405081}, {1.171494655270841, 
+       1.1453611579702137`}, {0.6814800333164113, 0.6421787502973482}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{2.082614199905697, 1.0269682625843526`}, {
+      2.0475783816597573`, 0.10009088488983431`}, {0., 0.01522972556700708}, {
+      0.5651392174560707, 1.6275395833006105`}, {1.4871395800946425`, 
+      0.832024762777373}, {0.730279170826939, 0.9360738681903713}, {
+      0.9221656615042108, 0.}, {0.014733698787973037`, 
+      0.7571854038912991}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 5}, {1, 6}, {2, 5}, {2, 7}, {3, 6}, {3, 7}, {3, 
+         8}, {4, 5}, {4, 6}, {4, 8}, {5, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{2.082614199905697, 1.0269682625843526`}, {
+       2.0475783816597573`, 0.10009088488983431`}, {0., 
+       0.01522972556700708}, {0.5651392174560707, 1.6275395833006105`}, {
+       1.4871395800946425`, 0.832024762777373}, {0.730279170826939, 
+       0.9360738681903713}, {0.9221656615042108, 0.}, {0.014733698787973037`, 
+       0.7571854038912991}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{0., 1.1848662149627893`}, {2.5052133751477497`, 
+      1.185343620414459}, {1.2532743779497713`, 0.}, {0.200034694343173, 
+      0.3996168369611285}, {2.30477382875701, 0.4002952705120988}, {
+      0.6648684606142851, 1.4227506598483788`}, {1.8385796237067118`, 
+      1.4231034447119923`}, {1.251373636086571, 1.0125372001992723`}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 4}, {1, 6}, {1, 8}, {2, 5}, {2, 7}, {2, 8}, {3, 4}, {3, 
+         5}, {3, 8}, {4, 6}, {5, 7}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{0., 1.1848662149627893`}, {
+       2.5052133751477497`, 1.185343620414459}, {1.2532743779497713`, 0.}, {
+       0.200034694343173, 0.3996168369611285}, {2.30477382875701, 
+       0.4002952705120988}, {0.6648684606142851, 1.4227506598483788`}, {
+       1.8385796237067118`, 1.4231034447119923`}, {1.251373636086571, 
+       1.0125372001992723`}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{2.4276908169198768`, 0.5472694918216116}, {
+      0.9872939479436111, 1.7139945381327433`}, {0.061653223367344356`, 
+      0.49303602239616867`}, {0.4657640181572411, 0.}, {0., 
+      1.1543631410574682`}, {1.9697551325239735`, 1.2110318614663071`}, {
+      1.6690409721254147`, 0.15608692625230391`}, {1.3175044752962155`, 
+      0.834859512856696}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 6}, {1, 7}, {1, 8}, {2, 5}, {2, 6}, {2, 8}, {3, 4}, {3, 
+         5}, {3, 8}, {4, 5}, {4, 7}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{2.4276908169198768`, 0.5472694918216116}, {
+       0.9872939479436111, 1.7139945381327433`}, {0.061653223367344356`, 
+       0.49303602239616867`}, {0.4657640181572411, 0.}, {0., 
+       1.1543631410574682`}, {1.9697551325239735`, 1.2110318614663071`}, {
+       1.6690409721254147`, 0.15608692625230391`}, {1.3175044752962155`, 
+       0.834859512856696}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{1.6864871945189828`, 0.007740208680501404}, {
+      1.6136805277542634`, 1.8231533961107844`}, {0.5600327676890868, 
+      1.7814922458837694`}, {0., 0.8113680665032911}, {2.069965942114162, 
+      0.8399133886862691}, {0.624243003595244, 0.}, {0.9410040683690182, 
+      0.477212777106326}, {1.1592894846253612`, 0.9929459573983275}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 5}, {1, 6}, {1, 8}, {2, 3}, {2, 5}, {2, 8}, {3, 4}, {3, 
+         8}, {4, 6}, {4, 7}, {5, 7}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1.6864871945189828`, 0.007740208680501404}, {
+       1.6136805277542634`, 1.8231533961107844`}, {0.5600327676890868, 
+       1.7814922458837694`}, {0., 0.8113680665032911}, {2.069965942114162, 
+       0.8399133886862691}, {0.624243003595244, 0.}, {0.9410040683690182, 
+       0.477212777106326}, {1.1592894846253612`, 0.9929459573983275}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{2.1159502914085735`, 0.17742142178800469`}, {
+      2.267999249274978, 1.2025184823107171`}, {0.45316973978330677`, 
+      1.4754694827195869`}, {1.3193509521986109`, 1.7860467906980857`}, {0., 
+      0.4872012196724696}, {1.004291585286374, 0.}, {0.7212957874262313, 
+      0.8142726900562574}, {1.4538298908327287`, 0.7676570926267026}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 6}, {1, 8}, {2, 4}, {2, 8}, {3, 4}, {3, 5}, {3, 
+         8}, {4, 7}, {5, 6}, {5, 7}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{2.1159502914085735`, 0.17742142178800469`}, {
+       2.267999249274978, 1.2025184823107171`}, {0.45316973978330677`, 
+       1.4754694827195869`}, {1.3193509521986109`, 1.7860467906980857`}, {0., 
+       0.4872012196724696}, {1.004291585286374, 0.}, {0.7212957874262313, 
+       0.8142726900562574}, {1.4538298908327287`, 0.7676570926267026}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{0.3452800288102382, 1.6985332486791647`}, {
+      1.602940705782705, 1.7028417812521932`}, {0., 0.4996032702149468}, {
+      1.9580327541271836`, 0.5061061101392426}, {0.9812873230635275, 0.}, {
+      0.9784105440524762, 0.4462881076175536}, {0.5574900854956765, 
+      0.9537730427784882}, {1.3990672661359864`, 0.9565197855852308}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 3}, {1, 7}, {2, 4}, {2, 8}, {3, 5}, {3, 6}, {4, 
+         5}, {4, 6}, {5, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{0.3452800288102382, 1.6985332486791647`}, {
+       1.602940705782705, 1.7028417812521932`}, {0., 0.4996032702149468}, {
+       1.9580327541271836`, 0.5061061101392426}, {0.9812873230635275, 0.}, {
+       0.9784105440524762, 0.4462881076175536}, {0.5574900854956765, 
+       0.9537730427784882}, {1.3990672661359864`, 0.9565197855852308}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{1.470449673637523, 0.}, {1.0163016010158772`, 
+      0.6099714426553566}, {1.790873669453245, 1.1776292878788732`}, {
+      0.25021900010585973`, 0.029615508282989644`}, {1.1719646756803772`, 
+      1.6243166354357501`}, {0., 0.7491760014610285}, {0.623289411861456, 
+      1.7308611406978602`}, {0.05246736654059625, 1.3051315700079442`}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 3}, {1, 4}, {2, 5}, {2, 6}, {3, 5}, {3, 7}, {4, 
+         6}, {4, 8}, {5, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1.470449673637523, 0.}, {1.0163016010158772`,
+        0.6099714426553566}, {1.790873669453245, 1.1776292878788732`}, {
+       0.25021900010585973`, 0.029615508282989644`}, {1.1719646756803772`, 
+       1.6243166354357501`}, {0., 0.7491760014610285}, {0.623289411861456, 
+       1.7308611406978602`}, {0.05246736654059625, 1.3051315700079442`}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{1.971409466285913, 0.06015349583105001}, {
+      1.9601990245691394`, 1.1679317773191167`}, {1.3073750334572667`, 
+      0.4177312566333232}, {0., 0.9833082991680053}, {1.0371565062535761`, 
+      1.5153608245590773`}, {0.1824777016712419, 0.2744046298049283}, {
+      0.7405742117355851, 0.}, {0.9022985380631002, 0.9139299004588253}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 3}, {1, 7}, {2, 5}, {2, 8}, {3, 5}, {3, 6}, {4, 
+         5}, {4, 6}, {4, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1.971409466285913, 0.06015349583105001}, {
+       1.9601990245691394`, 1.1679317773191167`}, {1.3073750334572667`, 
+       0.4177312566333232}, {0., 0.9833082991680053}, {1.0371565062535761`, 
+       1.5153608245590773`}, {0.1824777016712419, 0.2744046298049283}, {
+       0.7405742117355851, 0.}, {0.9022985380631002, 0.9139299004588253}}]& ],
+    
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{1.9641264577670303`, 0.001247972609128789}, {
+      0.7098458419107191, 0.}, {2.675142977890748, 0.817566155665858}, {0., 
+      0.818251862658424}, {1.9683293039059462`, 0.9585790909635402}, {
+      0.7063105137949961, 0.9572211720301058}, {1.7559834689033347`, 
+      1.5565135766745115`}, {0.9169377476524136, 1.5565787410495058`}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 3}, {1, 5}, {2, 4}, {2, 6}, {3, 5}, {3, 7}, {4, 
+         6}, {4, 8}, {5, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{1.9641264577670303`, 0.001247972609128789}, {
+       0.7098458419107191, 0.}, {2.675142977890748, 0.817566155665858}, {0., 
+       0.818251862658424}, {1.9683293039059462`, 0.9585790909635402}, {
+       0.7063105137949961, 0.9572211720301058}, {1.7559834689033347`, 
+       1.5565135766745115`}, {0.9169377476524136, 1.5565787410495058`}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]], ",", 
+   GraphicsBox[
+    TagBox[
+     GraphicsComplexBox[{{0., 0.8963296412552989}, {0.45933191392043937`, 
+      0.20270442731051075`}, {2.093068835825786, 1.4767752452858165`}, {
+      2.740215977352155, 0.5694797836088163}, {0.7979640973402927, 
+      1.3039297645635788`}, {1.6746958045554865`, 0.}, {2.09203619879895, 
+      0.6641102422543231}, {1.0665693788006034`, 0.6431730856420531}}, {
+       {RGBColor[0.5, 0., 0.], 
+        LineBox[{{1, 2}, {1, 5}, {1, 8}, {2, 5}, {2, 6}, {3, 4}, {3, 5}, {3, 
+         7}, {4, 6}, {4, 7}, {5, 8}, {6, 7}, {6, 8}, {7, 8}}]}, 
+       {RGBColor[0, 0, 0.7], 
+        TagBox[
+         TooltipBox[PointBox[1],
+          "1"],
+         Annotation[#, 1, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[2],
+          "2"],
+         Annotation[#, 2, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[3],
+          "3"],
+         Annotation[#, 3, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[4],
+          "4"],
+         Annotation[#, 4, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[5],
+          "5"],
+         Annotation[#, 5, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[6],
+          "6"],
+         Annotation[#, 6, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[7],
+          "7"],
+         Annotation[#, 7, "Tooltip"]& ], 
+        TagBox[
+         TooltipBox[PointBox[8],
+          "8"],
+         Annotation[#, 8, "Tooltip"]& ]}}],
+     Annotation[#, 
+      VertexCoordinateRules -> {{0., 0.8963296412552989}, {
+       0.45933191392043937`, 0.20270442731051075`}, {2.093068835825786, 
+       1.4767752452858165`}, {2.740215977352155, 0.5694797836088163}, {
+       0.7979640973402927, 1.3039297645635788`}, {1.6746958045554865`, 0.}, {
+       2.09203619879895, 0.6641102422543231}, {1.0665693788006034`, 
+       0.6431730856420531}}]& ],
+    AspectRatio->Automatic,
+    FrameTicks->None,
+    PlotRange->All,
+    PlotRangePadding->Scaled[0.1]]}], "}"}]], "Input",
+ CellChangeTimes->{{3.4837843696218*^9, 3.4837843708243837`*^9}}]
+},
+WindowSize->{1155, 750},
+WindowMargins->{{56, Automatic}, {49, Automatic}},
+FrontEndVersion->"7.0 for Linux x86 (64-bit) (February 25, 2009)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 446, 9, 32, "Input"],
+Cell[CellGroupData[{
+Cell[1016, 33, 239, 4, 32, "Input"],
+Cell[1258, 39, 773, 12, 52, "Output"]
+}, Open  ]],
+Cell[2046, 54, 791, 17, 121, "Input"],
+Cell[2840, 73, 61286, 1666, 1337, InheritFromParent]
+}
+]
+*)
+
+(* End of internal cache information *)

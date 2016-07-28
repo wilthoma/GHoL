@@ -1,0 +1,136 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      3837,        127]
+NotebookOptionsPosition[      3102,         96]
+NotebookOutlinePosition[      3438,        111]
+CellTagsIndexPosition[      3395,        108]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"10", "v"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+  "1", "-", "14", "+", "262", "-", "2735", "+", "13798", "-", "38616", "+", 
+   "65390", "-", "68987", "+", "44434", "-", "16015", "+", 
+   "2482"}]}]], "Input",
+ CellChangeTimes->{{3.575351257086643*^9, 3.575351296160858*^9}, {
+  3.575351461207334*^9, 3.575351465937109*^9}, {3.575351499527039*^9, 
+  3.575351499715876*^9}, {3.575351629955381*^9, 3.5753516940084543`*^9}, {
+  3.575352031703285*^9, 3.5753520352309628`*^9}, {3.575352080054516*^9, 
+  3.575352082775517*^9}, {3.580445884999062*^9, 3.5804458918621264`*^9}}],
+
+Cell[BoxData["0"], "Output",
+ CellChangeTimes->{3.575351298294466*^9, 3.57535146665244*^9, 
+  3.575351710568768*^9, 3.5753520363633747`*^9, 3.5753520849514503`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"10", "-", "75", "+", "168", "-", "182", "+", "107", "-", "29"}], 
+  "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.575355149900723*^9, 3.5753551705625763`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"-", "1"}]], "Output",
+ CellChangeTimes->{3.575355171432911*^9}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.5753695681647663`*^9, 3.5753695702505913`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"11", "v"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.58044586112446*^9, 3.580445869002816*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"1", "-", "4", "+", "291", "-", "5846", "+", "50766", "-", "242778", 
+  "+", "712762", "-", "1354993", "+", "1703974", "-", "1410740", "+", 
+  "741356", "-", "224974", "+", "30187"}]], "Input",
+ CellChangeTimes->{{3.57536906383342*^9, 3.5753691731031837`*^9}, {
+  3.575604030151917*^9, 3.57560403084356*^9}}],
+
+Cell[BoxData["2"], "Output",
+ CellChangeTimes->{3.5753691746657763`*^9, 3.575604032068118*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"12", " ", "v"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.576485770892631*^9, 3.576485775458156*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+  "0", "-", "252", "+", "9031", "-", "132419", "+", "1030099", "-", "4829118",
+    "+", "14714960", "-", "30451203", "+", "43724108", "-", "43679070", "+", 
+   "29832211", "-", "13299111", "+", "3489795"}], 
+  "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.576485777337685*^9, 3.576485946474209*^9}, {
+  3.576486000808304*^9, 3.576486012672304*^9}}],
+
+Cell[BoxData["409031"], "Output",
+ CellChangeTimes->{3.5764859484291553`*^9, 3.576486016565387*^9}]
+}, Open  ]]
+},
+WindowSize->{740, 852},
+WindowMargins->{{Automatic, 124}, {Automatic, 3}},
+FrontEndVersion->"8.0 for Linux x86 (64-bit) (October 10, 2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 629, 12, 50, "Input"],
+Cell[1211, 36, 164, 2, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1412, 43, 205, 4, 50, "Input"],
+Cell[1620, 49, 87, 2, 30, "Output"]
+}, Open  ]],
+Cell[1722, 54, 96, 1, 30, "Input"],
+Cell[1821, 57, 135, 3, 30, "Input"],
+Cell[CellGroupData[{
+Cell[1981, 64, 331, 5, 50, "Input"],
+Cell[2315, 71, 94, 1, 30, "Output"]
+}, Open  ]],
+Cell[2424, 75, 141, 3, 30, "Input"],
+Cell[CellGroupData[{
+Cell[2590, 82, 394, 8, 69, "Input"],
+Cell[2987, 92, 99, 1, 30, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
