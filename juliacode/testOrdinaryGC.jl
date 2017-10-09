@@ -50,7 +50,7 @@ function testPermSignOrdinary()
 end
 
 function testCreateAllOrdinary()
-  L = [OrdinaryGraphVectorSpace(v,l,ee) for v in 3:11, l in 3:11, ee in [true, false]]
+  L = [OrdinaryGraphVectorSpace(v,l,ee) for v in 3:10, l in 3:8, ee in [true, false]]
   L=L[:]
   #createListFiles(L, timeout=20, skipExisting=false)
   createListFiles(L, skipExisting=false)

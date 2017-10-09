@@ -14,12 +14,8 @@ LDFLAGS=
 
 all : nautywrap ;
 
-nautywrap.o: ../nauty25r9_hacked/nauty.h nautywrap.c ../nauty25r9_hacked/gtools.o ../nauty25r9_hacked/nauty1.o ../nauty25r9_hacked/nautil1.o ../nauty25r9_hacked/naugraph1.o
-	${CC} ${CFLAGS} -c -fPIC -o nautywrap.o -DMAXN=32  \
-		nautywrap.c  
-
-nautywrap: nautywrap.o ../nauty25r9_hacked/nauty.h nautywrap.c ../nauty25r9_hacked/gtools.o ../nauty25r9_hacked/nauty1.o ../nauty25r9_hacked/nautil1.o ../nauty25r9_hacked/naugraph1.o
-	${CC} ${CFLAGS} -shared -o nautywrap.so -DMAXN=32  \
-		nautywrap.o ${NAUTY1O} 
+nautywrap: ../nauty25r9_hacked/nauty.h nautywrap.c ../nauty25r9_hacked/gtools.o ../nauty25r9_hacked/nauty1.o ../nauty25r9_hacked/nautil1.o ../nauty25r9_hacked/naugraph1.o
+	${CC} ${CFLAGS} -dynamiclib -o nautywrap.dylib -DMAXN=32  \
+		nautywrap.c ${NAUTY1O} 
 
 

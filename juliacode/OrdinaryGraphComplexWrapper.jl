@@ -81,7 +81,7 @@ end
    For each such T, a file is expected. Otherwise the corresponding
    graded component is considered not computed yet."""
 function is_valid(self::OrdinaryGraphVectorSpaceWrapper)
-  return is_valid(get_base())
+  return is_valid(get_base(self))
    #     nEdges = self.nLoops + self.nVertices -1
         # at least trivalent, and simple
     #    return  (3*self.nVertices <= 2*nEdges) && self.nVertices > 0 && self.nLoops >= 0 && nEdges <= self.nVertices*(self.nVertices-1)/2

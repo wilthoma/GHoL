@@ -71,7 +71,7 @@ function dispGraphListDot(lst; nDisplay=0, captionList=[])
               outFile = "__dummy.svg"
               run(`neato -Nshape=point -Tsvg -o$outFile $cg`)
               open(outFile) do ff
-                write(f, readall(ff))
+                write(f, readstring(ff))
               end
 
               write(f,"<p>$(captions[idx]).</p></div>\n")

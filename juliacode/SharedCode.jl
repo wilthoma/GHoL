@@ -114,8 +114,20 @@ function inducedPerm(p::Permutation, lst::Permutation)
     return argsort(plst)
 end
 
+function readall(cFile)
+  s=""
+  open(cFile) do f
+    s = readstring(f)
+  end
+  return s
+end
+
 function readAllLines(cFile)
-  lll = split(strip(readall(cFile)),"\n")
+  lll = []
+  open(cFile) do f
+    lll = readlines(f)
+  end
+  #lll = split(strip(readall(cFile)),"\n")
   filter!(s->s!="", lll)
   return lll
 end

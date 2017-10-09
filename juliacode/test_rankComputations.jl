@@ -1,7 +1,7 @@
 function computeOrdinaryRanks()
-  L = [ContractDOrdinary(v,l,ee) for v in 2:8, l in 2:6, ee in [true, false]]
+  L = [ContractDOrdinary(v,l,ee) for v in 2:10, l in 2:8, ee in [true, false]]
   L=L[:]
-  computeRanks(L, skipExisting=true)
+  computeRanks(L, skipExisting=false)
 end
 
 function computeOrdinaryRanksWrapper()
@@ -28,8 +28,8 @@ function scheduleAllOrdinaryRanksWrapper()
   scheduleForRankComputations(L, skipExisting=true)
 end
 
-#computeOrdinaryRanks()
+computeOrdinaryRanks()
 #scheduleOrdinaryRanks()
 
 #scheduleAllOrdinaryRanksWrapper()
-computeOrdinaryRanksWrapper()
+#computeOrdinaryRanksWrapper()

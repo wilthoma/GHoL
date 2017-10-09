@@ -102,7 +102,7 @@ function createOperatorFile{S,T}(self::GraphOperator{S,T})
         end
 
         # lookup g6 -> index in target vector space
-        lookup = [ s => j for (j,s) in enumerate(ll)]
+        lookup = Dict{String,Int}( s => j for (j,s) in enumerate(ll))
 
         open(outFile,"w") do f
           for (i,G) in enumerate(lst)
@@ -376,7 +376,7 @@ function get_cohomology{U,S, T}(operatorD::GraphOperator{S,T},operatorDD::GraphO
 
       #NN = nullspace(full(A))
       if returnOnlyDimension
-          return sparse_nullspace_dim(A)
+          return sparse_nullspace_dim(A) 
       else
          NN = nullspace(full(A))
           return NN

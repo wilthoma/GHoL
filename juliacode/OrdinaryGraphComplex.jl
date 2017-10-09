@@ -47,7 +47,8 @@ end
 function get_generating_graphs(self::OrdinaryGraphVectorSpace)
         # generate List of unmarked graphs
         println(self.nVertices)
-    LL = listG(self.nVertices, self.nLoops)
+    #LL = listG(self.nVertices, self.nLoops)
+    LL = listG(self.nVertices, self.nLoops, false)
     return LL
 end
 
@@ -216,7 +217,7 @@ end
 
 function dispCohomologyOrdinary(nDisplay=0)
   data = []
-  nVR = collect(3:8)
+  nVR = collect(3:10)
   nLR=collect(2:8)
 
   for evenEdges in [true, false]
@@ -227,7 +228,7 @@ function dispCohomologyOrdinary(nDisplay=0)
         op = ContractDOrdinary(v,l,evenEdges)
         op2 = ContractDOrdinary(v+1,l,evenEdges)
 
-        dim = get_cohomology(op, op2)
+        dim = get_cohomology_by_rank(op, op2)
         deco = is_valid(vs) ? "" : "class=redcell"
         curdata[i,j] = Dict("data"=>dim, "style"=>deco)
       end
